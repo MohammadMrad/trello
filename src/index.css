@@ -1,0 +1,18 @@
+body {
+  font: 100% "Shabnam-Medium";
+  min-height: 70vh;
+  color: #172b4d;
+}
+
+a {
+  text-decoration: none;
+  color: #172b4d;
+}
+
+main {
+  min-height: 89vh;
+}
+
+i {
+  color: #fff;
+}

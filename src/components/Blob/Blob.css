@@ -1,0 +1,11 @@
+.blob {
+  position: relative;
+  height: auto;
+  min-width: 80%;
+}
+
+@media (max-width: 650px) {
+  .blob__image {
+    /* display: none; */
+  }
+}
