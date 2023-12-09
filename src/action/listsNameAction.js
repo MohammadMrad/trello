@@ -15,8 +15,7 @@ export const listsNameAction = () => async (dispatch) => {
 
     for (const item in data) {
       arrey.push({
-        list: data[item][item].list,
-        listId: data[item][item].listId,
+        list: data[item].list,
       })
     }
 

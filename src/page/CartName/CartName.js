@@ -31,7 +31,7 @@ const CartName = () => {
     axios
       .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
         card: event.target.cardOne.value,
-        id: Id(),
+        // id: Id(),
         // listId: list1,
       })
       .then((response) => {
@@ -45,7 +45,7 @@ const CartName = () => {
     axios
       .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
         card: event.target.cardTwo.value,
-        id: Id(),
+        // id: Id(),
         // listId: list1,
       })
       .then((response) => {

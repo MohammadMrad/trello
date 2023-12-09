@@ -21,13 +21,10 @@ const ListsName = () => {
     event.preventDefault()
 
     axios
-      .post(
-        `https://trello-d791c-default-rtdb.firebaseio.com/listsName/${event.target.listOne.value}.json`,
-        {
-          list: event.target.listOne.value,
-          listId: Id(),
-        }
-      )
+      .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
+        list: event.target.listOne.value,
+        // listId: Id(),
+      })
       .then((response) => {
         console.log(response)
         dispatch(listsNameAction())
@@ -37,13 +34,10 @@ const ListsName = () => {
       })
 
     axios
-      .post(
-        `https://trello-d791c-default-rtdb.firebaseio.com/listsName/${event.target.listTwo.value}.json`,
-        {
-          list: event.target.listTwo.value,
-          listId: Id(),
-        }
-      )
+      .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
+        list: event.target.listTwo.value,
+        // listId: Id(),
+      })
       .then((response) => {
         console.log(response)
         dispatch(listsNameAction())
@@ -53,13 +47,10 @@ const ListsName = () => {
       })
 
     axios
-      .post(
-        `https://trello-d791c-default-rtdb.firebaseio.com/listsName/${event.target.listThree.value}.json`,
-        {
-          list: event.target.listThree.value,
-          listId: Id(),
-        }
-      )
+      .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
+        list: event.target.listThree.value,
+        // listId: Id(),
+      })
       .then((response) => {
         console.log(response)
         dispatch(listsNameAction())
