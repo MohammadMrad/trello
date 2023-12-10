@@ -27,8 +27,15 @@
   align-items: flex-start;
 }
 
+.board-name__input-btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .board-name__form * {
   margin: 0;
+  /* display: block; */
 }
 
 .board-name__form label {
@@ -72,11 +79,12 @@
     margin-top: 0;
   }
   .board-name__input-btn-container {
-    display: flex;
+    flex-direction: row;
     margin: 0 1rem;
   }
   .board-name__input-btn-container button {
     margin: 0 0 0 0.2rem;
+    padding: 0.75rem 1rem;
   }
   .board-name__form label {
     display: none;

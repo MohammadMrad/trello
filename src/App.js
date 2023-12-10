@@ -3,13 +3,11 @@ import { Routes, Route } from "react-router-dom"
 import LogIn from "./page/LogIn/LogIn"
 import SignUp from "./page/SignUp/SignUp"
 import Home from "./page/Home/Home"
-import Account from "./page/Account/Account"
 import Welcome from "./page/Welcome/Welcome"
 import BoardName from "./page/BoardName/BoardName"
 import ListsName from "./page/ListsName/ListsName"
 import CartName from "./page/CartName/CartName"
 import Board from "./page/Board/Board"
-import SmallPage from "./components/SmallPage/SmallPage"
 
 const App = () => {
   return (
@@ -18,7 +16,6 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/logIn" element={<LogIn />} />
-        {/* <Route path="/account/:id" element={<Account />} /> */}
         <Route path="/signUp/welcome" element={<Welcome />} />
         <Route path="/signUp/boardName" element={<BoardName />} />
         <Route path="/signUp/listsName" element={<ListsName />} />

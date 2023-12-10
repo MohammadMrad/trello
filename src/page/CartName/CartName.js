@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import "./CartName.css"
 import Header from "../../components/Header/Header"
 import SmallPage from "../../components/SmallPage/SmallPage"
@@ -14,7 +14,7 @@ const CartName = () => {
   const navigate = useNavigate()
 
   const state = useSelector((state) => state.cardsName)
-  const { loader } = state
+  const { cardsName, loader } = state
 
   const listsNameState = useSelector((state) => state.listsName)
   const { listsName } = listsNameState
@@ -24,6 +24,12 @@ const CartName = () => {
 
   const accountListState = useSelector((state) => state.accountsList)
   const { accountsList } = accountListState
+
+  useEffect(() => {
+    if (!loader && cardsName.length !== 0) {
+      navigate(`/board/${accountsList[0].id}`)
+    }
+  })
 
   const handleSubmitBtn = (event) => {
     event.preventDefault()
@@ -55,10 +61,6 @@ const CartName = () => {
       .catch((error) => {
         console.log(error)
       })
-
-    setTimeout(() => {
-      navigate(`/board/${accountsList[0].id}`)
-    }, 3000)
   }
 
   return loader ? (

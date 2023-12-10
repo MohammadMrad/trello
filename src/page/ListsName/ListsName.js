@@ -14,8 +14,14 @@ const ListsName = () => {
   const navigate = useNavigate()
 
   const state = useSelector((state) => state.listsName)
-  const { loader } = state
+  const { loader, listsName } = state
   console.log(loader)
+
+  useEffect(() => {
+    if (!loader && listsName.length != 0) {
+      navigate("/signUp/CartName")
+    }
+  })
 
   const handleSubmitBtn = (event) => {
     event.preventDefault()
@@ -58,10 +64,6 @@ const ListsName = () => {
       .catch((error) => {
         console.log(error)
       })
-
-    setTimeout(() => {
-      navigate("/signUp/CartName")
-    }, 5000)
   }
   return loader ? (
     <Loader />

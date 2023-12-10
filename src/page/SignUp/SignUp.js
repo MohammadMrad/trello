@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Background from "../../components/Background/Background"
 import { Link, Route, Routes, useNavigate } from "react-router-dom"
 import "./SignUp.css"
@@ -16,8 +16,14 @@ const Signup = () => {
   const dispatch = useDispatch()
 
   const state = useSelector((state) => state.accountsList)
-  const { loader } = state
+  const { loader, accountsList } = state
   console.log(loader)
+
+  useEffect(() => {
+    if (!loader && accountsList.length !== 0) {
+      navigate("/signUp/welcome")
+    }
+  })
 
   const handleSignUp = (event) => {
     event.preventDefault()
@@ -29,17 +35,11 @@ const Signup = () => {
         password: event.target.password.value,
       })
       .then((response) => {
-        console.log(response)
         dispatch(accountsListAction())
-        // navigate("/signUp/welcome")
       })
       .catch((error) => {
         console.log(error)
       })
-
-    setTimeout(() => {
-      navigate("/signUp/welcome")
-    }, 1500)
   }
 
   return loader ? (

@@ -7,8 +7,10 @@ export const boardNameAction = () => async (dispatch) => {
     const response = await axios.get(
       "https://trello-d791c-default-rtdb.firebaseio.com/boardName.json"
     )
-
+    console.log(response)
     const data = await response.data
+
+    console.log(data)
 
     let arrey = []
 

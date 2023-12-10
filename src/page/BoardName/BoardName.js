@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { boardNameAction } from "../../action/boardNameAction"
@@ -13,8 +13,14 @@ const BoardName = () => {
   const dispatch = useDispatch()
 
   const state = useSelector((state) => state.boardName)
-  const { loader } = state
-  console.log(loader)
+  const { loader, boardName } = state
+  console.log(boardName)
+
+  useEffect(() => {
+    if (!loader && boardName.length != 0) {
+      navigate("/signUp/listsName")
+    }
+  })
 
   const handleBoardName = (event) => {}
 
@@ -31,10 +37,6 @@ const BoardName = () => {
       .catch((error) => {
         console.log(error)
       })
-
-    setTimeout(() => {
-      navigate("/signUp/listsName")
-    }, 1500)
   }
 
   return loader ? (
