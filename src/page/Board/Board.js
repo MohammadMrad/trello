@@ -10,6 +10,7 @@ import { listsNameAction } from "../../action/listsNameAction"
 import axios from "axios"
 import { isClickableInput } from "@testing-library/user-event/dist/utils"
 import { click } from "@testing-library/user-event/dist/click"
+import uuid from "react-uuid"
 
 const Board = () => {
   const [showSidebar, setShowSidebar] = useState(false)
@@ -30,13 +31,14 @@ const Board = () => {
   const listsNameState = useSelector((state) => state.listsName)
   const { listsName } = listsNameState
 
-  listsName.forEach((item) => {
-    console.log(item.list)
-  })
+  const cardsState = useSelector((state) => state.cardsName)
+  const { cardsName } = cardsState
+  console.log(cardsName)
 
   const accountState = useSelector((state) => state.accountsList)
   const { accountsList } = accountState
   const userName = accountsList[0].user
+  console.log(accountState)
   const firstLetterAccount = userName.slice(0, 1)
 
   let addAListBtn = (
@@ -57,6 +59,7 @@ const Board = () => {
     axios
       .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
         list: event.target.listTitle.value,
+        listId: uuid(),
       })
       .then((response) => {
         console.log(response)
@@ -292,8 +295,8 @@ const Board = () => {
             <div className="board-canvas">
               {listsName.map((item) => {
                 const a = item.list
-                console.log(a)
-                return <List key={item} value={a} />
+                console.log(item)
+                return <List key={item} list={item} />
               })}
               {addAListBtn}
             </div>

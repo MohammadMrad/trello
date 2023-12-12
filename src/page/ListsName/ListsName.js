@@ -8,6 +8,7 @@ import "./ListsName.css"
 import axios from "axios"
 import Loader from "../../components/Loader/Loader"
 import Id from "../../components/id/Id"
+import uuid from "react-uuid"
 
 const ListsName = () => {
   const dispatch = useDispatch()
@@ -29,7 +30,7 @@ const ListsName = () => {
     axios
       .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
         list: event.target.listOne.value,
-        // listId: Id(),
+        listId: uuid(),
       })
       .then((response) => {
         console.log(response)
@@ -42,7 +43,7 @@ const ListsName = () => {
     axios
       .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
         list: event.target.listTwo.value,
-        // listId: Id(),
+        listId: uuid(),
       })
       .then((response) => {
         console.log(response)
@@ -55,7 +56,7 @@ const ListsName = () => {
     axios
       .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
         list: event.target.listThree.value,
-        // listId: Id(),
+        listId: uuid(),
       })
       .then((response) => {
         console.log(response)

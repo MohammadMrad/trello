@@ -8,6 +8,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import Loader from "../../components/Loader/Loader"
 import Id from "../../components/id/Id"
+import uuid from "react-uuid"
 
 const CartName = () => {
   const dispatch = useDispatch()
@@ -19,15 +20,16 @@ const CartName = () => {
   const listsNameState = useSelector((state) => state.listsName)
   const { listsName } = listsNameState
   console.log(listsName)
-  // const list1 = listsName[0].listId
-  // console.log(list1)
+  const list1 = listsName[0].listId
+  console.log(list1)
 
   const accountListState = useSelector((state) => state.accountsList)
   const { accountsList } = accountListState
 
   useEffect(() => {
     if (!loader && cardsName.length !== 0) {
-      navigate(`/board/${accountsList[0].id}`)
+      // navigate(`/board/${accountsList[0].id}`)
+      navigate("/board")
     }
   })
 
@@ -37,8 +39,8 @@ const CartName = () => {
     axios
       .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
         card: event.target.cardOne.value,
-        // id: Id(),
-        // listId: list1,
+        listId: list1,
+        cardId: uuid(),
       })
       .then((response) => {
         console.log(response)
@@ -51,8 +53,8 @@ const CartName = () => {
     axios
       .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
         card: event.target.cardTwo.value,
-        // id: Id(),
-        // listId: list1,
+        listId: list1,
+        cardId: uuid(),
       })
       .then((response) => {
         console.log(response)

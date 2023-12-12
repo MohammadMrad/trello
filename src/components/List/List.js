@@ -3,18 +3,41 @@ import "./List.css"
 import Card from "../Card/Card"
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
-import ReactModal from "react-modal"
 import { listsNameAction } from "../../action/listsNameAction"
 import { cardsNameAction } from "../../action/cardsNameAction"
+import CartName from "../../page/CartName/CartName"
+import uuid from "react-uuid"
 
-const List = ({ value }) => {
+const List = ({ list }) => {
   const dispatch = useDispatch()
+  console.log(list)
 
   const [addACartBtnClicked, setAddACartBtnClicked] = useState(false)
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  const listNameState = useSelector((state) => state.listsName)
+  const { listsName } = listNameState
+  // console.log(listsName)
 
   const cardsState = useSelector((state) => state.cardsName)
   const { cardsName } = cardsState
+  console.log(cardsName)
+
+  // const cards = listsName.map((list) => {
+  //   const b = cardsName.filter((cart, index) => {
+  //     return list.listId === cart.cardId
+  //   })
+  //   return b
+  // })
+  // console.log(cards)
+  // cards.forEach((item) => {
+  //   let m = Object.values(item)
+  // })
+
+  const cardss = cardsName.filter((item) => {
+    console.log(item)
+    return item.listId === list.listId
+  })
+  console.log(cardss)
 
   let addACartBtn = (
     <button
@@ -59,6 +82,8 @@ const List = ({ value }) => {
     axios
       .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
         card: event.target.list.value,
+        listId: list.listId,
+        cardId: uuid(),
       })
       .then((response) => {
         dispatch(cardsNameAction())
@@ -71,50 +96,37 @@ const List = ({ value }) => {
   }
 
   const removeListHandle = () => {
-    axios
-      .delete(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`)
-      .then((response) => {
-        console.log(response)
-        dispatch(listsNameAction)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios
+    //   .delete(
+    //     `https://trello-d791c-default-rtdb.firebaseio.com/listsName.list.${list.listId}.json`
+    //   )
+    //   .then((response) => {
+    //     console.log(response)
+    //     dispatch(listsNameAction)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
 
-    dispatch(listsNameAction())
+    dispatch(listsNameAction(list.listId))
   }
 
   return (
     <div className="list">
       <section className="list__header">
-        <h2>{value}</h2>
+        <h2>{list.list}</h2>
         <span className="list__more-icon">
-          <i className="fa fa-ellipsis-h"></i>
+          <i className="fa fa-trash-o" onClick={() => removeListHandle()}></i>
         </span>
       </section>
-      <article onClick={() => setModalIsOpen(!modalIsOpen)}>
-        {cardsName.map((item, index) => {
-          const a = item.card
-          return (
-            <div className="list-title" key={index}>
-              {a}
-            </div>
-          )
+      <article>
+        {cardss.map((item, index) => {
+          console.log(item)
+          return <Card card={item} key={index} />
         })}
       </article>
 
       <div className="list-footer">{addACartBtn}</div>
-
-      <ReactModal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(!modalIsOpen)}
-      >
-        <div>mohammad</div>
-      </ReactModal>
-
-      <button type="submit" onClick={() => removeListHandle()}>
-        remve
-      </button>
     </div>
   )
 }

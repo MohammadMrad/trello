@@ -11,6 +11,15 @@ export const listsNameReducer = (state = { listsName: [] }, action) => {
         listsName: action.payload,
         loader: action.loading,
       }
+    case "DELETE-DATA":
+      return {
+        ...state,
+        listsName: state.listsName.filter(
+          (item) => item.listId !== action.payload
+        ),
+        loader: action.loading,
+      }
+
     default:
       return state
   }

@@ -16,8 +16,8 @@ export const cardsNameAction = (type) => async (dispatch) => {
     for (const item in data) {
       arrey.push({
         card: data[item].card,
-        // id: data[item].id,
-        // listId: data[item].listId,
+        listId: data[item].listId,
+        cardId: data[item].cardId,
       })
     }
 
