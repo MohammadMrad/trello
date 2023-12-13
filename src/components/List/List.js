@@ -10,17 +10,14 @@ import uuid from "react-uuid"
 
 const List = ({ list }) => {
   const dispatch = useDispatch()
-  console.log(list)
 
   const [addACartBtnClicked, setAddACartBtnClicked] = useState(false)
 
   const listNameState = useSelector((state) => state.listsName)
   const { listsName } = listNameState
-  // console.log(listsName)
 
   const cardsState = useSelector((state) => state.cardsName)
   const { cardsName } = cardsState
-  console.log(cardsName)
 
   // const cards = listsName.map((list) => {
   //   const b = cardsName.filter((cart, index) => {
@@ -34,10 +31,8 @@ const List = ({ list }) => {
   // })
 
   const cardss = cardsName.filter((item) => {
-    console.log(item)
     return item.listId === list.listId
   })
-  console.log(cardss)
 
   let addACartBtn = (
     <button
@@ -121,7 +116,6 @@ const List = ({ list }) => {
       </section>
       <article>
         {cardss.map((item, index) => {
-          console.log(item)
           return <Card card={item} key={index} />
         })}
       </article>

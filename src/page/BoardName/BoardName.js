@@ -14,7 +14,6 @@ const BoardName = () => {
 
   const state = useSelector((state) => state.boardName)
   const { loader, boardName } = state
-  console.log(boardName)
 
   useEffect(() => {
     if (!loader && boardName.length != 0) {

@@ -19,9 +19,8 @@ const CartName = () => {
 
   const listsNameState = useSelector((state) => state.listsName)
   const { listsName } = listsNameState
-  console.log(listsName)
+
   const list1 = listsName[0].listId
-  console.log(list1)
 
   const accountListState = useSelector((state) => state.accountsList)
   const { accountsList } = accountListState
@@ -43,7 +42,7 @@ const CartName = () => {
         cardId: uuid(),
       })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         dispatch(cardsNameAction())
       })
       .catch((error) => {
@@ -57,7 +56,7 @@ const CartName = () => {
         cardId: uuid(),
       })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         dispatch(cardsNameAction())
       })
       .catch((error) => {

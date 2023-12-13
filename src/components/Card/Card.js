@@ -10,7 +10,6 @@ const Card = ({ card }) => {
   const dispatch = useDispatch()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  console.log(card)
 
   const commentState = useSelector((state) => state.comment)
   const { comment } = commentState
@@ -92,7 +91,6 @@ const Card = ({ card }) => {
           <div className="card__send-comment-box">{commentBox}</div>
           <div className="card__comments">
             {commentt.map((item, index) => {
-              console.log(item)
               return <Comment comment={item} />
             })}
           </div>

@@ -16,7 +16,6 @@ const ListsName = () => {
 
   const state = useSelector((state) => state.listsName)
   const { loader, listsName } = state
-  console.log(loader)
 
   useEffect(() => {
     if (!loader && listsName.length != 0) {
@@ -33,7 +32,7 @@ const ListsName = () => {
         listId: uuid(),
       })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         dispatch(listsNameAction())
       })
       .catch((error) => {
@@ -46,7 +45,7 @@ const ListsName = () => {
         listId: uuid(),
       })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         dispatch(listsNameAction())
       })
       .catch((error) => {
@@ -59,7 +58,7 @@ const ListsName = () => {
         listId: uuid(),
       })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         dispatch(listsNameAction())
       })
       .catch((error) => {

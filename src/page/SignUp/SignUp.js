@@ -17,7 +17,6 @@ const Signup = () => {
 
   const state = useSelector((state) => state.accountsList)
   const { loader, accountsList } = state
-  console.log(loader)
 
   useEffect(() => {
     if (!loader && accountsList.length !== 0) {

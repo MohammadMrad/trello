@@ -45,7 +45,7 @@ export const listsNameAction = (listIdDelete) => async (dispatch) => {
             }
           )
           .then((response) => {
-            console.log(response)
+            // console.log(response)
           })
           .catch((error) => {
             console.log(error)
