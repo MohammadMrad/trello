@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import "./Board.css"
 import { useDispatch, useSelector } from "react-redux"
 import List from "../../components/List/List"
@@ -8,22 +8,28 @@ import ReactModal from "react-modal"
 import { useEffect } from "react"
 import { listsNameAction } from "../../action/listsNameAction"
 import axios from "axios"
-import { isClickableInput } from "@testing-library/user-event/dist/utils"
-import { click } from "@testing-library/user-event/dist/click"
 import uuid from "react-uuid"
+import { cardsNameAction } from "../../action/cardsNameAction"
+import { commentAction } from "../../action/commentAction"
+import { accountsAction } from "../../action/accountsAction"
+import { boardNameAction } from "../../action/boardNameAction"
 
 const Board = () => {
+  const navigate = useNavigate()
+
+  const boatdId = useParams()
+  const { id } = boatdId
+
   const [showSidebar, setShowSidebar] = useState(false)
   const [starClicked, setStarClicked] = useState(false)
   const [addAListBtnClicked, setAddAListBtnClicked] = useState(false)
+  const [createBoardBtnClicked, setCreateBoardBtnClicked] = useState(false)
+
+  const userId = JSON.parse(localStorage.getItem("user"))
+
+  // const boardId = JSON.parse(localStorage.getItem("boardsId"))
 
   const dispatch = useDispatch()
-
-  // const [modalIsOpen, setModalIsOpen] = useState(false)
-
-  useEffect(() => {
-    dispatch(listsNameAction())
-  }, [dispatch])
 
   const boardNameState = useSelector((state) => state.boardName)
   const { boardName } = boardNameState
@@ -36,9 +42,83 @@ const Board = () => {
 
   const accountState = useSelector((state) => state.accountsList)
   const { accountsList } = accountState
-  const userName = accountsList[0].user
 
-  const firstLetterAccount = userName.slice(0, 1)
+  useEffect(() => {
+    dispatch(listsNameAction())
+    dispatch(cardsNameAction())
+    dispatch(commentAction())
+    dispatch(boardNameAction())
+    dispatch(accountsAction())
+  }, [dispatch])
+
+  // const currentUserBoardsName = boardName.filter((item) => {
+  //   console.log(item)
+  //   return item.userId === userId
+  // })
+  // const currentBoardName = currentUserBoardsName.filter((item) => {
+  //   return item.boardId === id
+  // })
+  // console.log(currentUserBoardsName)
+
+  // const user = accountsList.filter((item) => {
+  //   console.log(item.boardId)
+  //   return item.boardId === id
+  // })
+
+  // const userName = user[0].user
+  // const firstLetterUserName = userName.slice(0, 1)
+
+  const listt = listsName.filter((item) => {
+    return item.userId === userId
+  })
+
+  const listtt = listt.filter((item) => {
+    return item.boardId === id
+  })
+
+  const handleCloseModalCreateBoard = () => {
+    setCreateBoardBtnClicked(false)
+  }
+
+  const customStyles = {
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.7)",
+    },
+    content: {
+      width: "30%",
+      height: "20%",
+      margin: "auto",
+      borderRadius: "7px",
+      backgroundColor: "#ebecf0",
+      // position: "absolote",
+      // margin: "2rem",
+    },
+  }
+
+  const handleboardTitle = (event) => {
+    event.preventDefault()
+
+    localStorage.setItem("boardId", JSON.stringify(uuid()))
+    const boardId = JSON.parse(localStorage.getItem("boardId"))
+
+    axios
+      .post("https://trello-d791c-default-rtdb.firebaseio.com/boardName.json", {
+        boardId: boardId,
+        userId: userId,
+        boardName: event.target.boardTitle.value,
+      })
+      .then((response) => {
+        console.log(response)
+        dispatch(boardNameAction())
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    event.target.boardTitle.value = ""
+    handleCloseModalCreateBoard()
+    navigate(`/board/${boardId}`)
+  }
 
   let addAListBtn = (
     <button
@@ -57,8 +137,10 @@ const Board = () => {
 
     axios
       .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
+        boardId: id,
         list: event.target.listTitle.value,
         listId: uuid(),
+        userId: userId,
       })
       .then((response) => {
         // console.log(response)
@@ -112,9 +194,6 @@ const Board = () => {
             <ul>
               <li className="board__navbar-li board__navbar-li-hover">
                 <Link to="">
-                  {/* <i className="fa fa-ellipsis-v"></i>
-                <i className="fa fa-ellipsis-v"></i>
-                <i className="fa fa-ellipsis-v"></i> */}
                   <i className="fa fa-th"></i>
                 </Link>
               </li>
@@ -179,7 +258,11 @@ const Board = () => {
                   </div>
                 </Link>
               </li>
-              <li className="board__navbar-li board__navbar-li-hover one-li-background create-dropdown">
+              <li
+                className="board__navbar-li board__navbar-li-hover one-li-background create-dropdown"
+                onClick={() => setCreateBoardBtnClicked(true)}
+                style={{ position: "relative" }}
+              >
                 <Link to="" className="text-link">
                   Create
                 </Link>
@@ -187,7 +270,29 @@ const Board = () => {
                   <i className="fa fa-plus"></i>
                 </Link>
               </li>
+
+              <ReactModal
+                isOpen={createBoardBtnClicked}
+                onRequestClose={handleCloseModalCreateBoard}
+                style={customStyles}
+              >
+                <form
+                  action=""
+                  onSubmit={handleboardTitle}
+                  className="board__create-board-form"
+                >
+                  <input
+                    type="text"
+                    name="boardTitle"
+                    className="board__create-board-input"
+                  />
+                  <button type="submit" className="board__create-board-submit">
+                    Create
+                  </button>
+                </form>
+              </ReactModal>
             </ul>
+
             <ul>
               <li className="board__navbar-li board__Search-input-container">
                 <div className="board__Search-input-box">
@@ -214,7 +319,7 @@ const Board = () => {
               <li className="board__navbar-li board__li-padding-circle board__navbar-li-hover">
                 <Link to="">
                   <div className="board__account-image">
-                    {firstLetterAccount}
+                    {/* {firstLetterUserName} */}
                   </div>
                 </Link>
               </li>
@@ -249,7 +354,9 @@ const Board = () => {
               <div className="board__header">
                 <ul>
                   <li className="board__header-li board__header-li-hover">
-                    <h1 style={{ color: "#fff" }}>{boardName[0].boardName}</h1>
+                    <h1 style={{ color: "#fff" }}>
+                      {/* {currentBoardName[0].boardName} */}
+                    </h1>
                   </li>
                   <li
                     className="board__header-li board__header-li-hover"
@@ -298,7 +405,7 @@ const Board = () => {
                 </ul>
               </div>
               <div className="board-canvas">
-                {listsName.map((item) => {
+                {listtt.map((item) => {
                   return <List key={item} list={item} />
                 })}
                 {addAListBtn}

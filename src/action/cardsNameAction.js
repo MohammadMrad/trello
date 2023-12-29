@@ -18,6 +18,7 @@ export const cardsNameAction = (type) => async (dispatch) => {
         card: data[item].card,
         listId: data[item].listId,
         cardId: data[item].cardId,
+        userId: data[item].userId,
       })
     }
 

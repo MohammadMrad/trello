@@ -1,0 +1,21 @@
+{
+    "name": "Dev'Trello",
+    "short_name": "DevTrello",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#fdfdfd",
+    "theme_color": "#172b4d",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "./images/trello-icon.svg",
+        "type": "image/svg", 
+        "sizes": "any"
+      },
+      {
+        "src": "./images/Trello-Logo.png",
+        "type": "image/png", 
+        "sizes": "any"
+      }
+    ]
+  }

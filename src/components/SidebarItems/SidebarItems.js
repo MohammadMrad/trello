@@ -1,8 +1,19 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import "./SidebarItems.css"
+import { useSelector } from "react-redux"
+import BoardIcon from "../BoardIcon/BoardIcon"
 
 const SidebatItems = ({ showSidebar }) => {
+  const boardNameState = useSelector((state) => state.boardName)
+  const { boardName } = boardNameState
+
+  const userId = JSON.parse(localStorage.getItem("user"))
+
+  const boards = boardName.filter((item) => {
+    return item.userId === userId
+  })
+
   return (
     <div
       className="sidebar-items"
@@ -85,6 +96,9 @@ const SidebatItems = ({ showSidebar }) => {
       </ul>
 
       <h2>Your Boards</h2>
+      {boards.map((item, index) => {
+        return <BoardIcon board={item} key={index} />
+      })}
     </div>
   )
 }

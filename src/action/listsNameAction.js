@@ -9,14 +9,15 @@ export const listsNameAction = (listIdDelete) => async (dispatch) => {
 
     const data = await response.data
 
-    const arrey = []
-
     // console.log(data)
+    const arrey = []
 
     for (const item in data) {
       arrey.push({
         list: data[item].list,
         listId: data[item].listId,
+        userId: data[item].userId,
+        boardId: data[item].boardId,
       })
     }
 
@@ -42,6 +43,8 @@ export const listsNameAction = (listIdDelete) => async (dispatch) => {
             {
               list: item.list,
               listId: item.listId,
+              userId: item.userId,
+              boardId: item.boardId,
             }
           )
           .then((response) => {

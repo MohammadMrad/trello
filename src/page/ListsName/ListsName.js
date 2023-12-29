@@ -26,10 +26,19 @@ const ListsName = () => {
   const handleSubmitBtn = (event) => {
     event.preventDefault()
 
+    const userId = JSON.parse(localStorage.getItem("user"))
+
+    localStorage.setItem("firstListId", JSON.stringify(uuid()))
+    const firstListId = JSON.parse(localStorage.getItem("firstListId"))
+
+    const boardId = JSON.parse(localStorage.getItem("boardsId"))
+
     axios
       .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
         list: event.target.listOne.value,
-        listId: uuid(),
+        listId: firstListId,
+        userId: userId,
+        boardId: boardId,
       })
       .then((response) => {
         // console.log(response)
@@ -43,6 +52,8 @@ const ListsName = () => {
       .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
         list: event.target.listTwo.value,
         listId: uuid(),
+        userId: userId,
+        boardId: boardId,
       })
       .then((response) => {
         // console.log(response)
@@ -56,6 +67,8 @@ const ListsName = () => {
       .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
         list: event.target.listThree.value,
         listId: uuid(),
+        userId: userId,
+        boardId: boardId,
       })
       .then((response) => {
         // console.log(response)

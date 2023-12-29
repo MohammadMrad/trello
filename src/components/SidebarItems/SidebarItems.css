@@ -20,7 +20,7 @@
 }
 
 .sidebar-items__navbar-li-hover div:hover {
-  background-color: #747474;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .sidebar-items__navbar-li div * {

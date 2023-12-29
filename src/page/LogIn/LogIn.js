@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 import AnotherSocial from "../../components/AnotherSocial/AnotherSocial"
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
-import { accountsListAction } from "../../action/accountsAction"
+import { accountsAction } from "../../action/accountsAction"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -14,8 +14,10 @@ const Login = () => {
   const accountListState = useSelector((state) => state.accountsList)
   const { accountsList } = accountListState
 
+  const boardId = JSON.parse(localStorage.getItem("boardsId"))
+
   useEffect(() => {
-    dispatch(accountsListAction())
+    dispatch(accountsAction())
   }, [dispatch])
 
   const handleLogin = (event) => {
@@ -26,23 +28,11 @@ const Login = () => {
         event.target.userName.value === accountsList[item].user &&
         event.target.password.value === accountsList[item].password
       ) {
-        navigate(`/board/${accountsList[item].id}`)
+        navigate(`/board/${boardId}`)
       } else {
         console.log("Error")
       }
     }
-
-    // accountsList.map((item) => {
-    //   const { user, password } = item
-    //   if (
-    //     event.target.userName.value === user &&
-    //     event.target.password.value === password
-    //   ) {
-    //     navigate(`/account/${item.id}`)
-    //   } else {
-    //     console.log("error")
-    //   }
-    // })
   }
 
   return (

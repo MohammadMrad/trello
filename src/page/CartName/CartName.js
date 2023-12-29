@@ -20,26 +20,31 @@ const CartName = () => {
   const listsNameState = useSelector((state) => state.listsName)
   const { listsName } = listsNameState
 
-  const list1 = listsName[0].listId
-
   const accountListState = useSelector((state) => state.accountsList)
   const { accountsList } = accountListState
+
+  const boardId = JSON.parse(localStorage.getItem("boardsId"))
 
   useEffect(() => {
     if (!loader && cardsName.length !== 0) {
       // navigate(`/board/${accountsList[0].id}`)
-      navigate("/board")
+      navigate(`/board/${boardId}`)
     }
   })
 
   const handleSubmitBtn = (event) => {
     event.preventDefault()
 
+    const userId = JSON.parse(localStorage.getItem("user"))
+
+    const firstListId = JSON.parse(localStorage.getItem("firstListId"))
+
     axios
       .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
         card: event.target.cardOne.value,
-        listId: list1,
+        listId: firstListId,
         cardId: uuid(),
+        userId: userId,
       })
       .then((response) => {
         // console.log(response)
@@ -52,8 +57,9 @@ const CartName = () => {
     axios
       .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
         card: event.target.cardTwo.value,
-        listId: list1,
+        listId: firstListId,
         cardId: uuid(),
+        userId: userId,
       })
       .then((response) => {
         // console.log(response)

@@ -1,11 +1,11 @@
-export const boardNameReducer = (state = { boardName: [] }, action) => {
+export const boardsReducer = (state = { boards: [] }, action) => {
   switch (action.type) {
-    case "SENDING-BOARD-NAME-REQUEST":
+    case "SENDING-BOARD-REQUEST":
       return {
         ...state,
         loader: action.loading,
       }
-    case "FETCH-BOARD-NAME-DATA-SUCCESS":
+    case "SENDING-BOARD-DATA-SUCCESS":
       return {
         ...state,
         boardName: action.payload,

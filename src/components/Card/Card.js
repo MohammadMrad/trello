@@ -50,7 +50,12 @@ const Card = ({ card }) => {
         className="card__comment-form"
         onSubmit={handleSendComment}
       >
-        <input type="text" name="comment" id="card__comment-input" />
+        <input
+          type="text"
+          name="comment"
+          id="card__comment-input"
+          placeholder="Write a comment..."
+        />
         <button type="submit" className="card__comment-btn">
           Send
         </button>
@@ -60,7 +65,7 @@ const Card = ({ card }) => {
 
   const customStyles = {
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.7)", // رنگ سیاه با شفافیت
+      backgroundColor: "rgba(0, 0, 0, 0.7)",
     },
     content: {
       width: "55%",
@@ -91,7 +96,7 @@ const Card = ({ card }) => {
           <div className="card__send-comment-box">{commentBox}</div>
           <div className="card__comments">
             {commentt.map((item, index) => {
-              return <Comment comment={item} />
+              return <Comment comment={item} key={index} />
             })}
           </div>
           {/* <button onClick={closeModal}>Close</button> */}

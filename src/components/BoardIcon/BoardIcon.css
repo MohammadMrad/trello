@@ -1,0 +1,7 @@
+.board-icon {
+  padding: 0.5rem 1.8rem;
+}
+
+.board-icon:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}

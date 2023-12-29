@@ -7,6 +7,7 @@ import SmallPage from "../../components/SmallPage/SmallPage"
 import "./BoardName.css"
 import axios from "axios"
 import Loader from "../../components/Loader/Loader"
+import uuid from "react-uuid"
 
 const BoardName = () => {
   const navigate = useNavigate()
@@ -14,6 +15,10 @@ const BoardName = () => {
 
   const state = useSelector((state) => state.boardName)
   const { loader, boardName } = state
+
+  // const accountsState = useSelector((state) => state.accountsList)
+  // const { accountsList } = accountsState
+  // console.log(accountsList)
 
   useEffect(() => {
     if (!loader && boardName.length != 0) {
@@ -26,9 +31,15 @@ const BoardName = () => {
   const handleSubmitBtn = (event) => {
     event.preventDefault()
 
+    const userId = JSON.parse(localStorage.getItem("user"))
+
+    const boardId = JSON.parse(localStorage.getItem("boardsId"))
+
     axios
       .post("https://trello-d791c-default-rtdb.firebaseio.com/boardName.json", {
+        boardId: boardId,
         boardName: event.target.boardName.value,
+        userId: userId,
       })
       .then((response) => {
         dispatch(boardNameAction())

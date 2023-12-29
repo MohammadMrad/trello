@@ -6,6 +6,7 @@ import store from "./store"
 import "font-awesome/css/font-awesome.min.css"
 import App from "./App"
 import "./index.css"
+import { register } from "register-service-worker"
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 
@@ -16,3 +17,5 @@ root.render(
     </Provider>
   </BrowserRouter>
 )
+
+register()

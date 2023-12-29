@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Background from "../../components/Background/Background"
-import { Link, Route, Routes, useNavigate } from "react-router-dom"
+import { Link, Route, Routes, json, useNavigate } from "react-router-dom"
 import "./SignUp.css"
 import AnotherSocial from "../../components/AnotherSocial/AnotherSocial"
 import uuid from "react-uuid"
@@ -8,7 +8,7 @@ import Welcome from "../Welcome/Welcome"
 import BoardName from "../BoardName/BoardName"
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
-import { accountsListAction } from "../../action/accountsAction"
+import { accountsAction } from "../../action/accountsAction"
 import Loader from "../../components/Loader/Loader"
 
 const Signup = () => {
@@ -27,14 +27,21 @@ const Signup = () => {
   const handleSignUp = (event) => {
     event.preventDefault()
 
+    localStorage.setItem("user", JSON.stringify(uuid()))
+    const userId = JSON.parse(localStorage.getItem("user"))
+
+    localStorage.setItem("boardsId", JSON.stringify(uuid()))
+    const boardId = JSON.parse(localStorage.getItem("boardsId"))
+
     axios
       .post("https://trello-d791c-default-rtdb.firebaseio.com/accounts.json", {
-        id: uuid(),
+        boardId: boardId,
+        userId: userId,
         user: event.target.userName.value,
         password: event.target.password.value,
       })
       .then((response) => {
-        dispatch(accountsListAction())
+        dispatch(accountsAction())
       })
       .catch((error) => {
         console.log(error)

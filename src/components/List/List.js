@@ -30,9 +30,15 @@ const List = ({ list }) => {
   //   let m = Object.values(item)
   // })
 
+  // console.log(list)
+
   const cardss = cardsName.filter((item) => {
+    // console.log(item.listId)
+    // console.log(list.listId)
+    // console.log("mohammad")
     return item.listId === list.listId
   })
+  // console.log(cardss)
 
   let addACartBtn = (
     <button
@@ -74,11 +80,14 @@ const List = ({ list }) => {
   const addCardHandle = (event) => {
     event.preventDefault()
 
+    const userId = JSON.parse(localStorage.getItem("user"))
+
     axios
       .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
         card: event.target.list.value,
         listId: list.listId,
         cardId: uuid(),
+        userId: userId,
       })
       .then((response) => {
         dispatch(cardsNameAction())
@@ -91,18 +100,6 @@ const List = ({ list }) => {
   }
 
   const removeListHandle = () => {
-    // axios
-    //   .delete(
-    //     `https://trello-d791c-default-rtdb.firebaseio.com/listsName.list.${list.listId}.json`
-    //   )
-    //   .then((response) => {
-    //     console.log(response)
-    //     dispatch(listsNameAction)
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //   })
-
     dispatch(listsNameAction(list.listId))
   }
 
