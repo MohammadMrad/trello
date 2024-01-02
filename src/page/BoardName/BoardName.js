@@ -26,27 +26,43 @@ const BoardName = () => {
     }
   })
 
-  const handleBoardName = (event) => {}
-
-  const handleSubmitBtn = (event) => {
+  const handleBoardName = (event) => {
     event.preventDefault()
 
     const userId = JSON.parse(localStorage.getItem("user"))
 
     const boardId = JSON.parse(localStorage.getItem("boardsId"))
 
-    axios
-      .post("https://trello-d791c-default-rtdb.firebaseio.com/boardName.json", {
-        boardId: boardId,
-        boardName: event.target.boardName.value,
-        userId: userId,
-      })
-      .then((response) => {
-        dispatch(boardNameAction())
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios
+    //   .post("https://trello-d791c-default-rtdb.firebaseio.com/boardName.json", {
+    //     boardId: boardId,
+    //     boardName: event.target.boardName.value,
+    //     userId: userId,
+    //   })
+    //   .then((response) => {
+    //     dispatch(boardNameAction())
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
+
+    const boards = localStorage.getItem("boards")
+      ? JSON.parse(localStorage.getItem("boards"))
+      : []
+
+    localStorage.setItem(
+      "boards",
+      JSON.stringify([
+        ...boards,
+        {
+          boardId: boardId,
+          boardName: event.target.boardName.value,
+          userId: userId,
+        },
+      ])
+    )
+
+    navigate("/signUp/listsName")
   }
 
   return loader ? (
@@ -63,7 +79,10 @@ const BoardName = () => {
             A board is where work happens in Trello. You'll find your cards,
             lists, due dates, and more to keep you organized and on track.
           </p>
-          <form className="board-name__form" onSubmit={handleSubmitBtn}>
+          <form
+            className="board-name__form"
+            onSubmit={(event) => handleBoardName(event)}
+          >
             <label htmlFor="">Enter a board name</label>
             <div className="board-name__input-btn-container">
               <input
@@ -72,7 +91,6 @@ const BoardName = () => {
                 placeholder="e.g., My Trello board"
                 className="board-name__input"
                 // value={boardName}
-                onChange={(event) => handleBoardName(event)}
               />
               <button type="submit" className="board-name__submit-btn">
                 Next

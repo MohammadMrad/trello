@@ -33,50 +33,81 @@ const ListsName = () => {
 
     const boardId = JSON.parse(localStorage.getItem("boardsId"))
 
-    axios
-      .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
-        list: event.target.listOne.value,
-        listId: firstListId,
-        userId: userId,
-        boardId: boardId,
-      })
-      .then((response) => {
-        // console.log(response)
-        dispatch(listsNameAction())
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios
+    //   .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
+    //     list: event.target.listOne.value,
+    //     listId: firstListId,
+    //     userId: userId,
+    //     boardId: boardId,
+    //   })
+    //   .then((response) => {
+    //     // console.log(response)
+    //     dispatch(listsNameAction())
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
 
-    axios
-      .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
-        list: event.target.listTwo.value,
-        listId: uuid(),
-        userId: userId,
-        boardId: boardId,
-      })
-      .then((response) => {
-        // console.log(response)
-        dispatch(listsNameAction())
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios
+    //   .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
+    //     list: event.target.listTwo.value,
+    //     listId: uuid(),
+    //     userId: userId,
+    //     boardId: boardId,
+    //   })
+    //   .then((response) => {
+    //     // console.log(response)
+    //     dispatch(listsNameAction())
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
 
-    axios
-      .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
-        list: event.target.listThree.value,
-        listId: uuid(),
-        userId: userId,
-        boardId: boardId,
-      })
-      .then((response) => {
-        // console.log(response)
-        dispatch(listsNameAction())
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios
+    //   .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
+    //     list: event.target.listThree.value,
+    //     listId: uuid(),
+    //     userId: userId,
+    //     boardId: boardId,
+    //   })
+    //   .then((response) => {
+    //     // console.log(response)
+    //     dispatch(listsNameAction())
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
+
+    const lists = localStorage.getItem("lists")
+      ? JSON.parse(localStorage.getItem("lists"))
+      : []
+
+    localStorage.setItem(
+      "lists",
+      JSON.stringify([
+        ...lists,
+        {
+          list: event.target.listOne.value,
+          listId: firstListId,
+          userId: userId,
+          boardId: boardId,
+        },
+        {
+          list: event.target.listTwo.value,
+          listId: uuid(),
+          userId: userId,
+          boardId: boardId,
+        },
+        {
+          list: event.target.listThree.value,
+          listId: uuid(),
+          userId: userId,
+          boardId: boardId,
+        },
+      ])
+    )
+
+    navigate("/signUp/CartName")
   }
   return loader ? (
     <Loader />

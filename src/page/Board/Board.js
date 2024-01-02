@@ -1,5 +1,11 @@
 import React, { useState } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import {
+  Link,
+  useLocation,
+  useMatch,
+  useNavigate,
+  useParams,
+} from "react-router-dom"
 import "./Board.css"
 import { useDispatch, useSelector } from "react-redux"
 import List from "../../components/List/List"
@@ -13,9 +19,11 @@ import { cardsNameAction } from "../../action/cardsNameAction"
 import { commentAction } from "../../action/commentAction"
 import { accountsAction } from "../../action/accountsAction"
 import { boardNameAction } from "../../action/boardNameAction"
+import Dropdown from "../../components/Dropdown/Dropdown"
 
 const Board = () => {
   const navigate = useNavigate()
+  const location = useLocation()
 
   const boatdId = useParams()
   const { id } = boatdId
@@ -30,6 +38,9 @@ const Board = () => {
   // const boardId = JSON.parse(localStorage.getItem("boardsId"))
 
   const dispatch = useDispatch()
+
+  const state = useSelector((state) => state)
+  console.log(state)
 
   const boardNameState = useSelector((state) => state.boardName)
   const { boardName } = boardNameState
@@ -51,30 +62,23 @@ const Board = () => {
     dispatch(accountsAction())
   }, [dispatch])
 
-  // const currentUserBoardsName = boardName.filter((item) => {
-  //   console.log(item)
-  //   return item.userId === userId
-  // })
-  // const currentBoardName = currentUserBoardsName.filter((item) => {
-  //   return item.boardId === id
-  // })
+  // const currentUserBoardsName = boardName.filter(
+  //   (item) => item.userId === userId
+  // )
+
+  // const currentBoardName = currentUserBoardsName.filter(
+  //   (item) => item.boardId === id
+  // )
   // console.log(currentUserBoardsName)
 
-  // const user = accountsList.filter((item) => {
-  //   console.log(item.boardId)
-  //   return item.boardId === id
-  // })
+  // const user = accountsList.filter((item) => item.boardId === id)
 
   // const userName = user[0].user
   // const firstLetterUserName = userName.slice(0, 1)
 
-  const listt = listsName.filter((item) => {
-    return item.userId === userId
-  })
+  const listt = listsName.filter((item) => item.userId === userId)
 
-  const listtt = listt.filter((item) => {
-    return item.boardId === id
-  })
+  const listtt = listt.filter((item) => item.boardId === id)
 
   const handleCloseModalCreateBoard = () => {
     setCreateBoardBtnClicked(false)
@@ -85,8 +89,8 @@ const Board = () => {
       backgroundColor: "rgba(0, 0, 0, 0.7)",
     },
     content: {
-      width: "30%",
-      height: "20%",
+      width: "15rem",
+      height: "5%",
       margin: "auto",
       borderRadius: "7px",
       backgroundColor: "#ebecf0",
@@ -95,26 +99,47 @@ const Board = () => {
     },
   }
 
-  const handleboardTitle = (event) => {
+  const handleBoardTitle = (event) => {
     event.preventDefault()
 
     localStorage.setItem("boardId", JSON.stringify(uuid()))
     const boardId = JSON.parse(localStorage.getItem("boardId"))
 
-    axios
-      .post("https://trello-d791c-default-rtdb.firebaseio.com/boardName.json", {
-        boardId: boardId,
-        userId: userId,
-        boardName: event.target.boardTitle.value,
-      })
-      .then((response) => {
-        console.log(response)
-        dispatch(boardNameAction())
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios
+    //   .post("https://trello-d791c-default-rtdb.firebaseio.com/boardName.json", {
+    //     boardId: boardId,
+    //     userId: userId,
+    //     boardName: event.target.boardTitle.value,
+    //   })
+    //   .then((response) => {
+    //     console.log(response)
+    //     dispatch(boardNameAction())
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
 
+    // event.target.boardTitle.value = ""
+    // handleCloseModalCreateBoard()
+    // navigate(`/board/${boardId}`)
+
+    const boards = localStorage.getItem("boards")
+      ? JSON.parse(localStorage.getItem("boards"))
+      : []
+
+    localStorage.setItem(
+      "boards",
+      JSON.stringify([
+        ...boards,
+        {
+          boardId: boardId,
+          boardName: event.target.boardTitle.value,
+          userId: userId,
+        },
+      ])
+    )
+
+    dispatch(boardNameAction())
     event.target.boardTitle.value = ""
     handleCloseModalCreateBoard()
     navigate(`/board/${boardId}`)
@@ -135,21 +160,40 @@ const Board = () => {
   const addListHandle = (event) => {
     event.preventDefault()
 
-    axios
-      .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
-        boardId: id,
-        list: event.target.listTitle.value,
-        listId: uuid(),
-        userId: userId,
-      })
-      .then((response) => {
-        // console.log(response)
-        dispatch(listsNameAction())
-        setAddAListBtnClicked(false)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios
+    //   .post(`https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`, {
+    //     boardId: id,
+    //     list: event.target.listTitle.value,
+    //     listId: uuid(),
+    //     userId: userId,
+    //   })
+    //   .then((response) => {
+    //     // console.log(response)
+    //     dispatch(listsNameAction())
+    //     setAddAListBtnClicked(false)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
+
+    const lists = localStorage.getItem("lists")
+      ? JSON.parse(localStorage.getItem("lists"))
+      : []
+
+    localStorage.setItem(
+      "lists",
+      JSON.stringify([
+        ...lists,
+        {
+          boardId: id,
+          list: event.target.listTitle.value,
+          listId: uuid(),
+          userId: userId,
+        },
+      ])
+    )
+    dispatch(listsNameAction())
+    setAddAListBtnClicked(false)
   }
 
   if (addAListBtnClicked) {
@@ -181,6 +225,16 @@ const Board = () => {
         </div>
       </form>
     )
+  }
+
+  const setCopiedValue = (event) => {
+    event.preventDefault()
+    try {
+      navigator.clipboard.writeText(event.target.pathName.value)
+      alert("link copied !")
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -278,7 +332,7 @@ const Board = () => {
               >
                 <form
                   action=""
-                  onSubmit={handleboardTitle}
+                  onSubmit={(event) => handleBoardTitle(event)}
                   className="board__create-board-form"
                 >
                   <input
@@ -394,10 +448,29 @@ const Board = () => {
                     </div>
                   </li>
                   <li className="board__header-li">
-                    <button>
-                      <i className="fa fa-user-plus"></i>
-                      Share
-                    </button>
+                    <Dropdown
+                      buttonText={
+                        <div>
+                          <i className="fa fa-user-plus"> </i>
+                          <span>Share</span>
+                        </div>
+                      }
+                    >
+                      <div>
+                        <form
+                          className="dropdown__form"
+                          onSubmit={setCopiedValue}
+                        >
+                          <input
+                            type="text"
+                            name="pathName"
+                            value={location.pathname}
+                          />
+
+                          <button>Copy Link</button>
+                        </form>
+                      </div>
+                    </Dropdown>
                   </li>
                   <li className="board__header-li board__header-li-hover">
                     <i className="fa fa-ellipsis-h"></i>

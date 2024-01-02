@@ -1,24 +1,22 @@
 import axios from "axios"
 import { useSelector } from "react-redux"
 
-export const cardsNameAction = (type) => async (dispatch) => {
+export const cardsNameAction = () => async (dispatch) => {
   try {
-    dispatch({ type: "SENDING-CARD-REQUEST", loading: true })
+    // dispatch({ type: "SENDING-CARD-REQUEST", loading: true })
 
-    const response = await axios.get(
-      "https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json"
-    )
-
-    const data = await response.data
+    const cards = localStorage.getItem("cards")
+      ? JSON.parse(localStorage.getItem("cards"))
+      : []
 
     const arrey = []
 
-    for (const item in data) {
+    for (const item in cards) {
       arrey.push({
-        card: data[item].card,
-        listId: data[item].listId,
-        cardId: data[item].cardId,
-        userId: data[item].userId,
+        card: cards[item].card,
+        listId: cards[item].listId,
+        cardId: cards[item].cardId,
+        userId: cards[item].userId,
       })
     }
 
@@ -27,6 +25,28 @@ export const cardsNameAction = (type) => async (dispatch) => {
       payload: arrey,
       loading: false,
     })
+
+    if (navigator.onLine) {
+      const response = await axios.delete(
+        "https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json"
+      )
+      const data = await response.data
+      // console.log(data)
+
+      for (const item in cards) {
+        const response = await axios.post(
+          "https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json",
+          {
+            card: cards[item].card,
+            listId: cards[item].listId,
+            cardId: cards[item].cardId,
+            userId: cards[item].userId,
+          }
+        )
+        const data = await response.data
+        // console.log(data)
+      }
+    }
   } catch (error) {
     console.log(error)
   }

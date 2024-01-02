@@ -2,22 +2,20 @@ import axios from "axios"
 
 export const listsNameAction = (listIdDelete) => async (dispatch) => {
   try {
-    dispatch({ type: "SENDING-LISTN-REQUEST", loading: true })
-    const response = await axios.get(
-      `https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`
-    )
+    // dispatch({ type: "SENDING-LISTN-REQUEST", loading: true })
 
-    const data = await response.data
+    const lists = localStorage.getItem("lists")
+      ? JSON.parse(localStorage.getItem("lists"))
+      : []
 
-    // console.log(data)
     const arrey = []
 
-    for (const item in data) {
+    for (const item in lists) {
       arrey.push({
-        list: data[item].list,
-        listId: data[item].listId,
-        userId: data[item].userId,
-        boardId: data[item].boardId,
+        list: lists[item].list,
+        listId: lists[item].listId,
+        userId: lists[item].userId,
+        boardId: lists[item].boardId,
       })
     }
 
@@ -28,32 +26,11 @@ export const listsNameAction = (listIdDelete) => async (dispatch) => {
     })
 
     if (listIdDelete) {
-      axios.delete(
-        `https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`
-      )
-
-      const t = arrey.filter((item) => {
+      const updatedList = arrey.filter((item) => {
         return item.listId !== listIdDelete
       })
 
-      t.map((item) => {
-        axios
-          .post(
-            `https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`,
-            {
-              list: item.list,
-              listId: item.listId,
-              userId: item.userId,
-              boardId: item.boardId,
-            }
-          )
-          .then((response) => {
-            // console.log(response)
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-      })
+      localStorage.setItem("lists", JSON.stringify(updatedList))
     }
 
     dispatch({
@@ -61,6 +38,53 @@ export const listsNameAction = (listIdDelete) => async (dispatch) => {
       payload: listIdDelete,
       loading: false,
     })
+
+    if (navigator.onLine) {
+      const response = await axios.delete(
+        `https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`
+      )
+      const data = await response.data
+      // console.log(data);
+
+      for (const item in lists) {
+        const response = await axios.post(
+          `https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`,
+          {
+            list: lists[item].list,
+            listId: lists[item].listId,
+            userId: lists[item].userId,
+            boardId: lists[item].boardId,
+          }
+        )
+
+        const data = await response.data
+        // console.log(data)
+      }
+    }
+
+    if (listIdDelete) {
+      if (navigator.onLine) {
+        const response = await axios.delete(
+          `https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`
+        )
+        const data = await response.data
+        // console.log(data);
+
+        for (const item in lists) {
+          const response = await axios.post(
+            `https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`,
+            {
+              list: lists[item].list,
+              listId: lists[item].listId,
+              userId: lists[item].userId,
+              boardId: lists[item].boardId,
+            }
+          )
+          const data = await response.data
+          // console.log(data)
+        }
+      }
+    }
   } catch (error) {
     console.log(error)
   }

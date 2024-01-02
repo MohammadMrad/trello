@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const accountsAction = (boardTitle, userId) => async (dispatch) => {
+export const accountsAction = () => async (dispatch) => {
   try {
     dispatch({ type: "SENDING-ACCOUNT-REQUEST", loading: true })
 
@@ -24,20 +24,6 @@ export const accountsAction = (boardTitle, userId) => async (dispatch) => {
       type: "FETCH-ACCOUNT-DATA-SUCCESS",
       payload: arrey,
       loading: false,
-
-      // if(boardTitle) {
-      //   axios.delete(
-      //     "https://trello-d791c-default-rtdb.firebaseio.com/accounts.json"
-      //   )
-
-      //   let t = []
-
-      //   arrey.forEach((item) => {
-      //     if (userId === item.userId) {
-
-      //     }
-      //   })
-      // },
     })
   } catch (error) {
     console.log(error)
