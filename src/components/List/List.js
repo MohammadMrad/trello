@@ -82,20 +82,37 @@ const List = ({ list }) => {
 
     const userId = JSON.parse(localStorage.getItem("user"))
 
-    axios
-      .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
-        card: event.target.list.value,
-        listId: list.listId,
-        cardId: uuid(),
-        userId: userId,
-      })
-      .then((response) => {
-        dispatch(cardsNameAction())
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios
+    //   .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
+    //     card: event.target.list.value,
+    //     listId: list.listId,
+    //     cardId: uuid(),
+    //     userId: userId,
+    //   })
+    //   .then((response) => {
+    //     dispatch(cardsNameAction())
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
 
+    const cards = localStorage.getItem("cards")
+      ? JSON.parse(localStorage.getItem("cards"))
+      : []
+
+    localStorage.setItem(
+      "cards",
+      JSON.stringify([
+        ...cards,
+        {
+          card: event.target.list.value,
+          listId: list.listId,
+          cardId: uuid(),
+          userId: userId,
+        },
+      ])
+    )
+    dispatch(cardsNameAction())
     setAddACartBtnClicked(false)
   }
 

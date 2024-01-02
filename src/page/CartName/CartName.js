@@ -39,35 +39,60 @@ const CartName = () => {
 
     const firstListId = JSON.parse(localStorage.getItem("firstListId"))
 
-    axios
-      .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
-        card: event.target.cardOne.value,
-        listId: firstListId,
-        cardId: uuid(),
-        userId: userId,
-      })
-      .then((response) => {
-        // console.log(response)
-        dispatch(cardsNameAction())
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios
+    //   .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
+    //     card: event.target.cardOne.value,
+    //     listId: firstListId,
+    //     cardId: uuid(),
+    //     userId: userId,
+    //   })
+    //   .then((response) => {
+    //     // console.log(response)
+    //     dispatch(cardsNameAction())
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
 
-    axios
-      .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
-        card: event.target.cardTwo.value,
-        listId: firstListId,
-        cardId: uuid(),
-        userId: userId,
-      })
-      .then((response) => {
-        // console.log(response)
-        dispatch(cardsNameAction())
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios
+    //   .post("https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json", {
+    //     card: event.target.cardTwo.value,
+    //     listId: firstListId,
+    //     cardId: uuid(),
+    //     userId: userId,
+    //   })
+    //   .then((response) => {
+    //     // console.log(response)
+    //     dispatch(cardsNameAction())
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
+
+    const cards = localStorage.getItem("cards")
+      ? JSON.parse(localStorage.getItem("cards"))
+      : []
+
+    localStorage.setItem(
+      "cards",
+      JSON.stringify([
+        ...cards,
+        {
+          card: event.target.cardOne.value,
+          listId: firstListId,
+          cardId: uuid(),
+          userId: userId,
+        },
+        {
+          card: event.target.cardTwo.value,
+          listId: firstListId,
+          cardId: uuid(),
+          userId: userId,
+        },
+      ])
+    )
+
+    navigate(`/board/${boardId}`)
   }
 
   return loader ? (

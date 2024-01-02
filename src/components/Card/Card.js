@@ -29,18 +29,36 @@ const Card = ({ card }) => {
   const handleSendComment = (event) => {
     event.preventDefault()
 
-    axios
-      .post("https://trello-d791c-default-rtdb.firebaseio.com/comment.json", {
-        comment: event.target.comment.value,
-        cardId: card.cardId,
-      })
-      .then((response) => {
-        dispatch(commentAction())
-        event.target.comment.value = ""
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios
+    //   .post("https://trello-d791c-default-rtdb.firebaseio.com/comment.json", {
+    //     comment: event.target.comment.value,
+    //     cardId: card.cardId,
+    //   })
+    //   .then((response) => {
+    //     dispatch(commentAction())
+    //     event.target.comment.value = ""
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
+
+    const comment = localStorage.getItem("comment")
+      ? JSON.parse(localStorage.getItem("comment"))
+      : []
+
+    localStorage.setItem(
+      "comment",
+      JSON.stringify([
+        ...comment,
+        {
+          comment: event.target.comment.value,
+          cardId: card.cardId,
+        },
+      ])
+    )
+
+    dispatch(commentAction())
+    event.target.comment.value = ""
   }
 
   let commentBox = (

@@ -2,21 +2,19 @@ import axios from "axios"
 
 export const boardNameAction = () => async (dispatch) => {
   try {
-    dispatch({ type: "SENDING-BOARD-NAME-REQUEST", loading: true })
+    // dispatch({ type: "SENDING-BOARD-NAME-REQUEST", loading: true })
 
-    const response = await axios.get(
-      "https://trello-d791c-default-rtdb.firebaseio.com/boardName.json"
-    )
-
-    const data = await response.data
+    const boards = localStorage.getItem("boards")
+      ? JSON.parse(localStorage.getItem("boards"))
+      : []
 
     let arrey = []
 
-    for (const item in data) {
+    for (const item in boards) {
       arrey.push({
-        boardName: data[item].boardName,
-        boardId: data[item].boardId,
-        userId: data[item].userId,
+        boardName: boards[item].boardName,
+        boardId: boards[item].boardId,
+        userId: boards[item].userId,
       })
     }
 
@@ -25,6 +23,28 @@ export const boardNameAction = () => async (dispatch) => {
       payload: arrey,
       loading: false,
     })
+
+    if (navigator.onLine) {
+      const response = await axios.delete(
+        "https://trello-d791c-default-rtdb.firebaseio.com/boardName.json"
+      )
+      const data = await response.data
+      // console.log(data)
+
+      for (const item in boards) {
+        const response = await axios.post(
+          "https://trello-d791c-default-rtdb.firebaseio.com/boardName.json",
+          {
+            boardName: boards[item].boardName,
+            boardId: boards[item].boardId,
+            userId: boards[item].userId,
+          }
+        )
+
+        const data = await response.data
+        // console.log(data)
+      }
+    }
   } catch (error) {
     console.log(error)
   }
