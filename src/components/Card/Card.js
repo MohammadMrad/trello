@@ -1,22 +1,25 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import "./Card.css"
 import ReactModal from "react-modal"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { commentAction } from "../../action/commentAction"
 import Comment from "../Comment/Comment"
+import { cardsNameAction } from "../../action/cardsNameAction"
 
 const Card = ({ card }) => {
   const dispatch = useDispatch()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
+  useEffect(() => {
+    dispatch(cardsNameAction())
+  }, [dispatch])
+
   const commentState = useSelector((state) => state.comment)
   const { comment } = commentState
 
-  const commentt = comment.filter((item) => {
-    return item.cardId === card.cardId
-  })
+  const commentt = comment.filter((item) => item.cardId === card.cardId)
 
   const openModal = () => {
     setModalIsOpen(true)
@@ -94,11 +97,22 @@ const Card = ({ card }) => {
     },
   }
 
+  const handleRemoveCart = (cardIdDelete) => {
+    dispatch(cardsNameAction(cardIdDelete))
+  }
+
   return (
     <div className="card">
-      <h3 className="card-title" onClick={openModal}>
-        {card.card}
+      <h3 className="card-content" onDoubleClick={openModal}>
+        <span>{card.card}</span>
+        <span>
+          <i
+            className="fa fa-trash"
+            onClick={() => handleRemoveCart(card.cardId)}
+          ></i>
+        </span>
       </h3>
+
       <ReactModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

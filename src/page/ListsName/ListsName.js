@@ -106,6 +106,7 @@ const ListsName = () => {
         },
       ])
     )
+    dispatch(listsNameAction())
 
     navigate("/signUp/CartName")
   }

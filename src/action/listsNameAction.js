@@ -26,18 +26,18 @@ export const listsNameAction = (listIdDelete) => async (dispatch) => {
     })
 
     if (listIdDelete) {
-      const updatedList = arrey.filter((item) => {
+      const updatedLists = arrey.filter((item) => {
         return item.listId !== listIdDelete
       })
 
-      localStorage.setItem("lists", JSON.stringify(updatedList))
-    }
+      localStorage.setItem("lists", JSON.stringify(updatedLists))
 
-    dispatch({
-      type: "DELETE-DATA",
-      payload: listIdDelete,
-      loading: false,
-    })
+      dispatch({
+        type: "DELETE-DATA",
+        payload: listIdDelete,
+        loading: false,
+      })
+    }
 
     if (navigator.onLine) {
       const response = await axios.delete(
@@ -68,7 +68,7 @@ export const listsNameAction = (listIdDelete) => async (dispatch) => {
           `https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`
         )
         const data = await response.data
-        // console.log(data);
+        // console.log(data)
 
         for (const item in lists) {
           const response = await axios.post(
