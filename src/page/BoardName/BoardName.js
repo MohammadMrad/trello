@@ -61,6 +61,7 @@ const BoardName = () => {
         },
       ])
     )
+    dispatch(boardNameAction())
 
     navigate("/signUp/listsName")
   }

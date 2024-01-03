@@ -11,6 +11,15 @@ export const cardsNameReducer = (state = { cardsName: [] }, action) => {
         cardsName: action.payload,
         loader: action.loading,
       }
+    case "DELETE-CARD":
+      return {
+        ...state,
+        cardsName: state.cardsName.filter(
+          (item) => item.cardId !== action.payload
+        ),
+        loader: action.loading,
+      }
+
     default:
       return state
   }

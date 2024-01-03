@@ -1,8 +1,10 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
 import "./SmallPage.css"
 
 const SmallPage = () => {
+  useEffect(() => {}, [])
+
   const boardNamestate = useSelector((state) => state.boardName)
   const { boardName } = boardNamestate
 
@@ -55,7 +57,7 @@ const SmallPage = () => {
           <div className="all-box">
             <div className="small-page__list">
               <h2 className="list-name">
-                {/* {listsName.length === 0 ? "list-name" : listsName[0].list} */}
+                {listsName.length === 0 ? "list-name" : listsName[0].list}
               </h2>
               <h3 className="card-name first-card-position">
                 {cardsName.length === 0
@@ -71,13 +73,13 @@ const SmallPage = () => {
             </div>
             <div className="small-page__list">
               <h2 className="list-name">
-                {/* {listsName.length === 0 ? "list-name" : listsName[1].list} */}
+                {listsName.length === 0 ? "list-name" : listsName[1].list}
               </h2>
               <div className="card-box second-card"></div>
             </div>
             <div className="small-page__list">
               <h2 className="list-name">
-                {/* {listsName.length === 0 ? "list-name" : listsName[2].list} */}
+                {listsName.length === 0 ? "list-name" : listsName[2].list}
               </h2>
               <div className="card-box third-card"></div>
             </div>

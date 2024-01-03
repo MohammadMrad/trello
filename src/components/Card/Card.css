@@ -1,18 +1,29 @@
-.card-title {
+.card-content {
   border: none;
   outline: none;
   border-radius: 7px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 0.5rem 5rem 1.5rem 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 0.5rem 1.5rem 0.5rem;
+  /* padding: 0.5rem; */
   margin: 0.5rem 0;
   font-family: "Shabnam-Thin";
   font-size: 0.9rem;
   font-weight: bold;
+  display: flex;
+  justify-content: space-between;
 }
 
-.card-title:hover {
+.card-content:hover {
   outline: 1px solid;
   outline-color: #5c5c5c;
+}
+.fa-trash {
+  color: #172b4d;
+}
+
+.fa-trash:hover {
+  transform: rotate(45deg);
+  transition: 0.2s;
 }
 
 .card__comment-form {

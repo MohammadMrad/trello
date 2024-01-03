@@ -91,6 +91,7 @@ const CartName = () => {
         },
       ])
     )
+    dispatch(cardsNameAction)
 
     navigate(`/board/${boardId}`)
   }
