@@ -7,7 +7,6 @@ import { cardsNameAction } from "../../action/cardsNameAction"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import Loader from "../../components/Loader/Loader"
-import Id from "../../components/id/Id"
 import uuid from "react-uuid"
 
 const CartName = () => {

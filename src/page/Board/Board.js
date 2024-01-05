@@ -1,11 +1,5 @@
 import React, { useState } from "react"
-import {
-  Link,
-  useLocation,
-  useMatch,
-  useNavigate,
-  useParams,
-} from "react-router-dom"
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import "./Board.css"
 import { useDispatch, useSelector } from "react-redux"
 import List from "../../components/List/List"
@@ -13,7 +7,6 @@ import SidebarItems from "../../components/SidebarItems/SidebarItems"
 import ReactModal from "react-modal"
 import { useEffect } from "react"
 import { listsNameAction } from "../../action/listsNameAction"
-import axios from "axios"
 import uuid from "react-uuid"
 import { cardsNameAction } from "../../action/cardsNameAction"
 import { commentAction } from "../../action/commentAction"
@@ -24,9 +17,10 @@ import Dropdown from "../../components/Dropdown/Dropdown"
 const Board = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const dispatch = useDispatch()
 
-  const boatdId = useParams()
-  const { id } = boatdId
+  const boardId = useParams()
+  const { id } = boardId
 
   const [showSidebar, setShowSidebar] = useState(false)
   const [starClicked, setStarClicked] = useState(false)
@@ -34,13 +28,6 @@ const Board = () => {
   const [createBoardBtnClicked, setCreateBoardBtnClicked] = useState(false)
 
   const userId = JSON.parse(localStorage.getItem("user"))
-
-  // const boardId = JSON.parse(localStorage.getItem("boardsId"))
-
-  const dispatch = useDispatch()
-
-  const state = useSelector((state) => state)
-  console.log(state)
 
   const boardNameState = useSelector((state) => state.boardName)
   const { boardName } = boardNameState
@@ -62,16 +49,10 @@ const Board = () => {
     dispatch(accountsAction())
   }, [dispatch])
 
-  // const currentUserBoardsName = boardName.filter(
-  //   (item) => item.userId === userId
-  // )
+  const currentBoard = boardName.filter((item) => item.boardId === id)
 
-  // const currentBoardName = currentUserBoardsName.filter(
-  //   (item) => item.boardId === id
-  // )
-  // console.log(currentUserBoardsName)
-
-  // const user = accountsList.filter((item) => item.boardId === id)
+  const user = accountsList.filter((item) => item.boardId === id)
+  const a = Object.values(user)
 
   // const userName = user[0].user
   // const firstLetterUserName = userName.slice(0, 1)
@@ -237,10 +218,14 @@ const Board = () => {
     }
   }
 
+  const handleSearchList = (event) => {
+    dispatch(listsNameAction(null, event.target.value.trim().toLowerCase()))
+  }
+
   return (
     <div className="board">
       <div className="board__background">
-        <img src="/images/36308.jpg" alt="" />
+        <img src="/images/pexels-instawalli-176851.jpg" alt="" />
       </div>
       <div className="board__containner">
         <header>
@@ -353,7 +338,10 @@ const Board = () => {
                   <input
                     type="text"
                     placeholder="Search"
+                    name="search"
                     className="board__input"
+                    // value={listsFoundBySearch}
+                    onChange={handleSearchList}
                   />
                 </div>
                 <div className="board__navbar-search-icon">
@@ -409,7 +397,9 @@ const Board = () => {
                 <ul>
                   <li className="board__header-li board__header-li-hover">
                     <h1 style={{ color: "#fff" }}>
-                      {/* {currentBoardName[0].boardName} */}
+                      {currentBoard.map((item) => {
+                        return <div>{item.boardName}</div>
+                      })}
                     </h1>
                   </li>
                   <li
@@ -481,6 +471,7 @@ const Board = () => {
                 {listtt.map((item) => {
                   return <List key={item} list={item} />
                 })}
+
                 {addAListBtn}
               </div>
             </div>
