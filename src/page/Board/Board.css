@@ -14,8 +14,8 @@
 }
 
 .board {
-  /* background: url("/images/36308.jpg"); */
-  background-color: rgb(0, 0, 0, 0.2);
+  /* background-image: url("/images/36308.jpg"); */
+  background-color: rgb(0, 0, 0, 0.1);
   height: auto;
 }
 
@@ -450,6 +450,16 @@
   padding: 0.4rem 0.5rem;
   border-radius: 3px;
   font-size: 1rem;
+}
+
+.board__close-add-list {
+  padding: 0.4rem 0rem !important;
+  margin-left: 0.5rem;
+  background-color: #dfdfdf;
+}
+
+.board__close-add-list:hover {
+  background-color: #d4d4d4;
 }
 
 .board__create-board-form {

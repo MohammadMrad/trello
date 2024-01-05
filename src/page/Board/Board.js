@@ -225,7 +225,7 @@ const Board = () => {
   return (
     <div className="board">
       <div className="board__background">
-        <img src="/images/pexels-instawalli-176851.jpg" alt="" />
+        <img src="/images/pexels-pixabay-164175.jpg" alt="" />
       </div>
       <div className="board__containner">
         <header>
