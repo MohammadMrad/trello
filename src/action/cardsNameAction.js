@@ -68,7 +68,6 @@ export const cardsNameAction = (cardIdDelete) => async (dispatch) => {
       })
     }
 
-    console.log(cardIdDelete)
     if (cardIdDelete) {
       if (navigator.onLine) {
         const response = await axios.delete(

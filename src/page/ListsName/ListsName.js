@@ -5,9 +5,7 @@ import { listsNameAction } from "../../action/listsNameAction"
 import Header from "../../components/Header/Header"
 import SmallPage from "../../components/SmallPage/SmallPage"
 import "./ListsName.css"
-import axios from "axios"
 import Loader from "../../components/Loader/Loader"
-import Id from "../../components/id/Id"
 import uuid from "react-uuid"
 
 const ListsName = () => {

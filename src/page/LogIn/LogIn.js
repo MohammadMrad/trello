@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import "./LogIn.css"
 import Background from "../../components/Background/Background"
 import { Link, useNavigate } from "react-router-dom"
@@ -10,6 +10,7 @@ import { accountsAction } from "../../action/accountsAction"
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [message, setMessage] = useState("")
 
   const accountListState = useSelector((state) => state.accountsList)
   const { accountsList } = accountListState
@@ -28,9 +29,11 @@ const Login = () => {
         event.target.userName.value === accountsList[item].user &&
         event.target.password.value === accountsList[item].password
       ) {
+        setMessage("")
+
         navigate(`/board/${boardId}`)
       } else {
-        console.log("Error")
+        setMessage("There are no accounts with this information")
       }
     }
   }
@@ -67,6 +70,12 @@ const Login = () => {
               placeholder="Enter Password"
               className="log-in__input"
             />
+            <div className="sign-up__message">
+              {message.length > 1 ? (
+                <i className="fa fa-times-circle"></i>
+              ) : null}
+              <span>{message}</span>
+            </div>
             <button type="submit" className="log-in__submit-btn">
               Continue
             </button>

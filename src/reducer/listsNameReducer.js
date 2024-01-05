@@ -19,6 +19,13 @@ export const listsNameReducer = (state = { listsName: [] }, action) => {
         ),
         loader: action.loading,
       }
+    case "SEARCH-LISTS":
+      return {
+        ...state,
+        listsName: state.listsName.filter((item) => {
+          return item.list.trim().toLowerCase().includes(action.payload)
+        }),
+      }
 
     default:
       return state

@@ -81,6 +81,20 @@
   color: #0052cc;
 }
 
+.sign-up__message {
+  align-self: flex-start;
+  font-size: 0.8rem;
+  color: #ff0000;
+}
+
+.sign-up__message * {
+  margin: 0.2rem;
+}
+
+.fa-times-circle {
+  color: #ff0000;
+}
+
 .sign-up__log-in-link:hover {
   text-decoration: underline;
 }
