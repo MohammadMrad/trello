@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'Shabnam-Medium';
+  src: url(./assets/fonts/Shabnam-Medium.woff2);
+}
+
+@font-face {
+  font-family: 'Shabnam-Thin';
+  src: url(./assets/fonts/Shabnam-Thin.woff2);
+}
+
 body {
   font: 100% "Shabnam-Medium";
   min-height: 70vh;

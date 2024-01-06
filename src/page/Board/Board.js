@@ -138,6 +138,12 @@ const Board = () => {
     </button>
   )
 
+  const onWheelScrollCanvas = (evt) => {
+    evt.preventDefault();
+    evt.target.scrollLeft += evt.deltaY;
+  }
+
+
   const addListHandle = (event) => {
     event.preventDefault()
 
@@ -335,14 +341,16 @@ const Board = () => {
             <ul>
               <li className="board__navbar-li board__Search-input-container">
                 <div className="board__Search-input-box">
-                  <input
+                  
+                {/* <input
+                    autoComplete="none"
                     type="text"
                     placeholder="Search"
                     name="search"
                     className="board__input"
                     // value={listsFoundBySearch}
                     onChange={handleSearchList}
-                  />
+                  /> */}
                 </div>
                 <div className="board__navbar-search-icon">
                   <i className="fa fa-search"></i>
@@ -467,7 +475,7 @@ const Board = () => {
                   </li>
                 </ul>
               </div>
-              <div className="board-canvas">
+              <div className="board-canvas" onWheel={onWheelScrollCanvas}>
                 {listtt.map((item) => {
                   return <List key={item} list={item} />
                 })}
