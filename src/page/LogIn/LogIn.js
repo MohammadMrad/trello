@@ -70,7 +70,7 @@ const Login = () => {
               placeholder="Enter Password"
               className="log-in__input"
             />
-            <div className="sign-up__message">
+            <div className="log-in__message">
               {message.length > 1 ? (
                 <i className="fa fa-times-circle"></i>
               ) : null}
