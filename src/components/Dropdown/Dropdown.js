@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import "./Dropdown.css"
 import { render } from "@testing-library/react"
 
@@ -9,9 +9,14 @@ const Dropdown = (props) => {
     SetIsOpen(!isOpen)
   }
 
+  // window.onclick(SetIsOpen(!isOpen))
+  // window.addEventListener("click", toggleDropdown)
+
   return (
     <div className="dropdown">
-      <button onClick={toggleDropdown}>{props.buttonText}</button>
+      <button className="dropdown__btn" onClick={toggleDropdown}>
+        {props.buttonText}
+      </button>
       <div className="dropdown__container">
         {isOpen ? (
           <div className="dropdown__content">{props.children}</div>

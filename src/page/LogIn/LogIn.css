@@ -91,6 +91,12 @@
   text-decoration: underline;
 }
 
+.log-in__message {
+  align-self: flex-start;
+  font-size: 0.8rem;
+  color: #ff0000;
+}
+
 @media (max-width: 1000px) {
   .log-in__box {
     box-shadow: none;
