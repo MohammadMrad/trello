@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import "./Home.css"
+import image from "../../assets/images/TrelloUICollage_4x.png"
 
 const Home = () => {
   const [showMenu, setShowMenu] = useState(false)
@@ -105,10 +106,7 @@ const Home = () => {
           </section>
           <section className="home__ui-section section-right">
             <div className="home__ui-image">
-              <img
-                src="/images/TrelloUICollage_4x.png"
-                alt="trello-ui-collage"
-              />
+              <img src={image} alt="trello-ui-collage" />
             </div>
           </section>
         </div>

@@ -1,9 +1,8 @@
 import React from "react"
-import { Link, useNavigate } from "react-router-dom"
-import Blob from "../../components/Blob/Blob"
+import { useNavigate } from "react-router-dom"
 import Header from "../../components/Header/Header"
 import "./Welcome.css"
-import { useSelector } from "react-redux"
+import image from "../../assets/images/welcome-page.svg"
 
 const Welcome = () => {
   const navigate = useNavigate()
@@ -30,11 +29,7 @@ const Welcome = () => {
         </div>
         <div className="welcome__img-box">
           {/* <Blob style={{ maxWidth: "40rem" }}> */}
-          <img
-            src="/images/welcome-page.svg"
-            alt="welcome-page"
-            className="welcome__img"
-          />
+          <img src={image} alt="welcome-page" className="welcome__img" />
           {/* </Blob> */}
         </div>
       </main>

@@ -4,7 +4,6 @@ import Header from "../../components/Header/Header"
 import SmallPage from "../../components/SmallPage/SmallPage"
 import { useDispatch, useSelector } from "react-redux"
 import { cardsNameAction } from "../../action/cardsNameAction"
-import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import Loader from "../../components/Loader/Loader"
 import uuid from "react-uuid"
@@ -81,12 +80,14 @@ const CartName = () => {
           listId: firstListId,
           cardId: uuid(),
           userId: userId,
+          creationTime: new Date().getTime() + 1,
         },
         {
           card: event.target.cardTwo.value,
           listId: firstListId,
           cardId: uuid(),
           userId: userId,
+          creationTime: new Date().getTime() + 2,
         },
       ])
     )

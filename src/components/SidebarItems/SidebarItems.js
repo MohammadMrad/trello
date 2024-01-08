@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import "./SidebarItems.css"
 import { useSelector } from "react-redux"
 import BoardIcon from "../BoardIcon/BoardIcon"
@@ -12,6 +12,16 @@ const SidebatItems = ({ showSidebar }) => {
 
   const boards = boardName.filter((item) => {
     return item.userId === userId
+  })
+
+  boards.sort((firtsBoard, secondBoard) => {
+    if (firtsBoard.creationTime > secondBoard.creationTime) {
+      return 1
+    } else if (firtsBoard.creationTime < secondBoard.creationTime) {
+      return -1
+    } else {
+      return 0
+    }
   })
 
   return (

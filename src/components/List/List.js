@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useState } from "react"
 import "./List.css"
 import Card from "../Card/Card"
-import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import { listsNameAction } from "../../action/listsNameAction"
 import { cardsNameAction } from "../../action/cardsNameAction"
-import CartName from "../../page/CartName/CartName"
 import uuid from "react-uuid"
 
 const List = ({ list }) => {
@@ -19,26 +17,19 @@ const List = ({ list }) => {
   const cardsState = useSelector((state) => state.cardsName)
   const { cardsName } = cardsState
 
-  // const cards = listsName.map((list) => {
-  //   const b = cardsName.filter((cart, index) => {
-  //     return list.listId === cart.cardId
-  //   })
-  //   return b
-  // })
-  // console.log(cards)
-  // cards.forEach((item) => {
-  //   let m = Object.values(item)
-  // })
-
-  // console.log(list)
-
   const cardss = cardsName.filter((item) => {
-    // console.log(item.listId)
-    // console.log(list.listId)
-    // console.log("mohammad")
     return item.listId === list.listId
   })
-  // console.log(cardss)
+
+  cardss.sort((firstCart, secondCart) => {
+    if (firstCart.creationTime > secondCart.creationTime) {
+      return 1
+    } else if (firstCart.creationTime < secondCart.creationTime) {
+      return -1
+    } else {
+      return 0
+    }
+  })
 
   let addACartBtn = (
     <button
@@ -109,6 +100,7 @@ const List = ({ list }) => {
           listId: list.listId,
           cardId: uuid(),
           userId: userId,
+          creationTime: new Date().getTime(),
         },
       ])
     )
@@ -120,10 +112,46 @@ const List = ({ list }) => {
     dispatch(listsNameAction(list.listId))
   }
 
+  const handleRenameList = (event) => {
+    const listId = list.listId
+
+    const currentList = listsName.filter((item) => {
+      return item.listId === listId
+    })
+
+    const ListsExceptCurrentList = listsName.filter((item) => {
+      return item.listId !== listId
+    })
+
+    console.log(currentList[0].creationTime)
+
+    localStorage.setItem(
+      "lists",
+      JSON.stringify([
+        ...ListsExceptCurrentList,
+        {
+          list: event.target.value,
+          listId: currentList[0].listId,
+          boardId: currentList[0].boardId,
+          userId: currentList[0].userId,
+          creationTime: currentList[0].creationTime,
+        },
+      ])
+    )
+
+    dispatch(listsNameAction())
+  }
+
   return (
     <div className="list">
       <section className="list__header">
-        <h2>{list.list}</h2>
+        <input
+          type="text"
+          className="list__list-name-input"
+          value={list.list}
+          onChange={handleRenameList}
+        />
+
         <span className="list__more-icon">
           <i className="fa fa-trash-o" onClick={() => removeListHandle()}></i>
         </span>

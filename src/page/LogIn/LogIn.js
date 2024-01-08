@@ -3,9 +3,9 @@ import "./LogIn.css"
 import Background from "../../components/Background/Background"
 import { Link, useNavigate } from "react-router-dom"
 import AnotherSocial from "../../components/AnotherSocial/AnotherSocial"
-import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import { accountsAction } from "../../action/accountsAction"
+import logo from "../../assets/images/trello-logo-blue.svg"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -46,11 +46,7 @@ const Login = () => {
       <div className="log-in__container">
         <div className="log-in__box">
           <figure>
-            <img
-              src="/images/trello-logo-blue.svg"
-              alt="trello-logo"
-              className="log-in__logo"
-            />
+            <img src={logo} alt="trello-logo" className="log-in__logo" />
           </figure>
           <h2 className="log-in__title">Log in to Trello</h2>
           <form

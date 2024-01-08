@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
 import "./SmallPage.css"
+import logo from "../../assets/images/trello-logo-small-page.png"
 
 const SmallPage = () => {
   useEffect(() => {}, [])
@@ -23,7 +24,7 @@ const SmallPage = () => {
             <ul>
               <li>
                 <img
-                  src="/images/trello-logo-small-page.png"
+                  src={logo}
                   alt="small-page-logo"
                   className="small-page-logo"
                 />

@@ -5,9 +5,7 @@ import { boardNameAction } from "../../action/boardNameAction"
 import Header from "../../components/Header/Header"
 import SmallPage from "../../components/SmallPage/SmallPage"
 import "./BoardName.css"
-import axios from "axios"
 import Loader from "../../components/Loader/Loader"
-import uuid from "react-uuid"
 
 const BoardName = () => {
   const navigate = useNavigate()
@@ -21,7 +19,7 @@ const BoardName = () => {
   // console.log(accountsList)
 
   useEffect(() => {
-    if (!loader && boardName.length != 0) {
+    if (!loader && boardName.length !== 0) {
       navigate("/signUp/listsName")
     }
   })
@@ -58,6 +56,7 @@ const BoardName = () => {
           boardId: boardId,
           boardName: event.target.boardName.value,
           userId: userId,
+          creationTime: new Date().getTime(),
         },
       ])
     )

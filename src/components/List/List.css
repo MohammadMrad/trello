@@ -3,7 +3,7 @@
   min-height: 5rem;
   padding: 1rem 1rem 0.5rem 1rem;
   background-color: #ebecf0;
-  margin: 1rem;
+  margin: 1rem 0.5rem;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -12,6 +12,7 @@
 
 .list__header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   width: 15rem;
 }
@@ -99,4 +100,17 @@
 .fa-trash-o:hover {
   transition: all 0.2s;
   transform: rotate(45deg);
+}
+
+.list__list-name-input {
+  padding: 0.2rem 0.5rem;
+  width: 10rem;
+  height: 1.6rem;
+  border: none;
+  background-color: #ebecf0;
+  color: inherit;
+  font-family: "Shabnam-Medium";
+  /* font-weight: bold; */
+  font-size: 1rem;
+  outline-color: #0c66e4;
 }

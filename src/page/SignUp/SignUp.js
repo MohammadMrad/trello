@@ -8,6 +8,7 @@ import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import { accountsAction } from "../../action/accountsAction"
 import Loader from "../../components/Loader/Loader"
+import logo from "../../assets/images/trello-logo-blue.svg"
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -73,11 +74,7 @@ const Signup = () => {
       <div className="sign-up__container">
         <div className="sign-up__box">
           <figure>
-            <img
-              src="/images/trello-logo-blue.svg"
-              alt="trello-logo"
-              className="sign-up__logo"
-            />
+            <img src={logo} alt="trello-logo" className="sign-up__logo" />
           </figure>
           <h2 className="sign-up__title">Sign up to continue</h2>
           <form

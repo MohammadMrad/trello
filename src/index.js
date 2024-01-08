@@ -6,6 +6,7 @@ import store from "./store"
 import "font-awesome/css/font-awesome.min.css"
 import App from "./App"
 import "./assets/styles/reset.css"
+// import * as question from "./assets/images"
 import "./index.css"
 import { register } from "register-service-worker"
 

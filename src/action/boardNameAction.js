@@ -15,6 +15,7 @@ export const boardNameAction = () => async (dispatch) => {
         boardName: boards[item].boardName,
         boardId: boards[item].boardId,
         userId: boards[item].userId,
+        creationTime: boards[item].creationTime,
       })
     }
 
@@ -28,7 +29,7 @@ export const boardNameAction = () => async (dispatch) => {
       const response = await axios.delete(
         "https://trello-d791c-default-rtdb.firebaseio.com/boardName.json"
       )
-      const data = await response.data
+      // const data = await response.data
       // console.log(data)
 
       for (const item in boards) {
@@ -41,7 +42,7 @@ export const boardNameAction = () => async (dispatch) => {
           }
         )
 
-        const data = await response.data
+        // const data = await response.data
         // console.log(data)
       }
     }

@@ -27,7 +27,7 @@ export const commentAction = () => async (dispatch) => {
       const response = await axios.delete(
         "https://trello-d791c-default-rtdb.firebaseio.com/comment.json"
       )
-      const data = await response.data
+      // const data = await response.data
       //  console.log(data)
 
       for (const item in comment) {
@@ -39,7 +39,7 @@ export const commentAction = () => async (dispatch) => {
           }
         )
 
-        const data = await response.data
+        // const data = await response.data
         // console.log(data)
       }
     }

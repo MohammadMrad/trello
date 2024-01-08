@@ -1,6 +1,4 @@
 import axios from "axios"
-import { useSelector } from "react-redux"
-import { useActionData } from "react-router-dom"
 
 export const cardsNameAction = (cardIdDelete) => async (dispatch) => {
   try {
@@ -18,6 +16,7 @@ export const cardsNameAction = (cardIdDelete) => async (dispatch) => {
         listId: cards[item].listId,
         cardId: cards[item].cardId,
         userId: cards[item].userId,
+        creationTime: cards[item].creationTime,
       })
     }
 
@@ -44,7 +43,7 @@ export const cardsNameAction = (cardIdDelete) => async (dispatch) => {
       const response = await axios.delete(
         "https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json"
       )
-      const data = await response.data
+      // const data = await response.data
       // console.log(data)
 
       for (const item in cards) {
@@ -57,7 +56,7 @@ export const cardsNameAction = (cardIdDelete) => async (dispatch) => {
             userId: cards[item].userId,
           }
         )
-        const data = await response.data
+        // const data = await response.data
         // console.log(data)
       }
 
@@ -73,7 +72,7 @@ export const cardsNameAction = (cardIdDelete) => async (dispatch) => {
         const response = await axios.delete(
           "https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json"
         )
-        const data = await response.data
+        // const data = await response.data
         // console.log(data)
 
         for (const item in cards) {
@@ -86,7 +85,7 @@ export const cardsNameAction = (cardIdDelete) => async (dispatch) => {
               userId: cards[item].userId,
             }
           )
-          const data = await response.data
+          // const data = await response.data
           // console.log(data)
         }
       }

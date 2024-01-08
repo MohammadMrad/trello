@@ -12,11 +12,13 @@ export const listsNameAction =
       const arrey = []
 
       for (const item in lists) {
+        console.log(lists[item].creationTime)
         arrey.push({
           list: lists[item].list,
           listId: lists[item].listId,
           userId: lists[item].userId,
           boardId: lists[item].boardId,
+          creationTime: lists[item].creationTime,
         })
       }
 
@@ -51,7 +53,7 @@ export const listsNameAction =
         const response = await axios.delete(
           `https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`
         )
-        const data = await response.data
+        // const data = await response.data
         // console.log(data);
 
         for (const item in lists) {
@@ -65,7 +67,7 @@ export const listsNameAction =
             }
           )
 
-          const data = await response.data
+          // const data = await response.data
           // console.log(data)
         }
       }
@@ -75,7 +77,7 @@ export const listsNameAction =
           const response = await axios.delete(
             `https://trello-d791c-default-rtdb.firebaseio.com/listsName.json`
           )
-          const data = await response.data
+          // const data = await response.data
           // console.log(data)
 
           for (const item in lists) {
@@ -88,7 +90,7 @@ export const listsNameAction =
                 boardId: lists[item].boardId,
               }
             )
-            const data = await response.data
+            // const data = await response.data
             // console.log(data)
           }
         }

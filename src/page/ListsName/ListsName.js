@@ -16,7 +16,7 @@ const ListsName = () => {
   const { loader, listsName } = state
 
   useEffect(() => {
-    if (!loader && listsName.length != 0) {
+    if (!loader && listsName.length !== 0) {
       navigate("/signUp/CartName")
     }
   })
@@ -89,18 +89,21 @@ const ListsName = () => {
           listId: firstListId,
           userId: userId,
           boardId: boardId,
+          creationTime: new Date().getTime() + 1,
         },
         {
           list: event.target.listTwo.value,
           listId: uuid(),
           userId: userId,
           boardId: boardId,
+          creationTime: new Date().getTime() + 2,
         },
         {
           list: event.target.listThree.value,
           listId: uuid(),
           userId: userId,
           boardId: boardId,
+          creationTime: new Date().getTime() + 3,
         },
       ])
     )

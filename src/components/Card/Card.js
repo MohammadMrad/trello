@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react"
-import "./Card.css"
 import ReactModal from "react-modal"
 import { useDispatch, useSelector } from "react-redux"
-import axios from "axios"
 import { commentAction } from "../../action/commentAction"
 import Comment from "../Comment/Comment"
 import { cardsNameAction } from "../../action/cardsNameAction"
+import "./Card.css"
 
 const Card = ({ card }) => {
   const dispatch = useDispatch()
@@ -18,6 +17,9 @@ const Card = ({ card }) => {
 
   const commentState = useSelector((state) => state.comment)
   const { comment } = commentState
+
+  const cardsState = useSelector((state) => state.cardsName)
+  const { cardsName } = cardsState
 
   const commentt = comment.filter((item) => item.cardId === card.cardId)
 
@@ -101,6 +103,34 @@ const Card = ({ card }) => {
     dispatch(cardsNameAction(cardIdDelete))
   }
 
+  const handleRenameCard = (event) => {
+    const cartId = card.cardId
+
+    const currentCard = cardsName.filter((item) => {
+      return item.cardId === cartId
+    })
+
+    const CardsExceptCurrentCard = cardsName.filter((item) => {
+      return item.cardId !== cartId
+    })
+
+    localStorage.setItem(
+      "cards",
+      JSON.stringify([
+        ...CardsExceptCurrentCard,
+        {
+          card: event.target.value,
+          listId: currentCard[0].listId,
+          cardId: currentCard[0].cardId,
+          userId: currentCard[0].userId,
+          creationTime: currentCard[0].creationTime,
+        },
+      ])
+    )
+
+    dispatch(cardsNameAction())
+  }
+
   return (
     <div className="card">
       <h3 className="card-content" onDoubleClick={openModal}>
@@ -123,7 +153,13 @@ const Card = ({ card }) => {
         <div className="card__modal">
           <div className="card__cart-name">
             <i className="fa fa-window-maximize"></i>
-            <span>{card.card}</span>
+            {/* <span>{card.card}</span> */}
+            <input
+              type="name"
+              className="card__card-name-input"
+              onChange={handleRenameCard}
+              value={card.card}
+            />
           </div>
           <div className="card__send-comment-box">{commentBox}</div>
           <div className="card__comments">
