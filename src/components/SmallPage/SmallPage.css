@@ -1,0 +1,157 @@
+.small-page {
+  max-width: 31rem;
+  height: auto;
+  background-color: #c94386;
+  border-radius: 13px;
+}
+
+.small-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #db8ab2;
+  margin: 0 0.7rem;
+}
+
+.small-page__navbar ul {
+  display: flex;
+  align-items: center;
+}
+
+.item {
+  padding: 0.5rem 1.5rem;
+  background-color: #db8ab2;
+  margin: 0.2rem 0.3rem;
+  border-radius: 20px;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  padding: 0.8rem;
+  background-color: #db8ab2;
+  margin: 0.2rem 0.3rem;
+  border-radius: 50%;
+}
+
+.yellow-icon {
+  background-color: #ebdb4c;
+}
+
+span i.fa-bell {
+  color: #fcdcec;
+  padding: 0.8rem;
+}
+
+.small-page-logo {
+  width: 30px;
+  margin: 0.2rem 0;
+}
+
+.little-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.little-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.little-title > div {
+  margin: 0.8rem 1rem;
+}
+
+.small-icon {
+  padding: 0.6rem;
+  background-color: #db8ab2;
+  margin: 0.2rem 0.3rem;
+  border-radius: 50%;
+}
+
+.blue-icon {
+  background-color: #0c66e4;
+}
+
+.all-box {
+  display: flex;
+}
+
+.small-page__list {
+  width: 8.5rem;
+  height: 15rem;
+  background-color: #fff;
+  margin: 0.5rem;
+  border-radius: 7px;
+  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.card-box {
+  width: 80%;
+  height: 3.5rem;
+  /* background-color: aquamarine; */
+  align-self: center;
+  border-radius: 7px;
+}
+.first-card {
+  background-color: #ff7f50;
+  position: absolute;
+  top: 9rem;
+}
+
+.second-card {
+  background-color: #7fffd4;
+  position: absolute;
+  top: 3rem;
+}
+
+.third-card {
+  background-color: #370080;
+  position: absolute;
+  top: 3rem;
+}
+
+.board-name {
+  color: #000;
+}
+
+.list-name {
+  margin: 0.3rem 0 0 0.3rem;
+  font-size: 0.9rem;
+  font-family: "Shabnam-Thin";
+  font-weight: bold;
+}
+
+.card-name {
+  font-size: 0.75rem;
+  font-family: "Shabnam-Thin";
+  font-weight: bold;
+  margin: 0.3rem 0 0 0.5rem;
+}
+
+.first-card-position {
+  position: absolute;
+  top: 2rem;
+}
+
+.second-card-position {
+  position: absolute;
+  bottom: 0.9rem;
+}
+
+@media (max-width: 500px) {
+  .small-page {
+    /* align-items: center; */
+    height: auto;
+    max-width: 23rem;
+    /* margin: 0 20%; */
+  }
+}

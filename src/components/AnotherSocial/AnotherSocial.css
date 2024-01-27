@@ -1,0 +1,39 @@
+.social-login {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0.7rem;
+}
+
+.social-login-item {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: #fff;
+  font-family: inherit;
+  margin: 0.5rem 0;
+  padding: 0.5rem 3rem 0.5rem 1rem;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.3);
+  font-size: 0.9rem;
+  color: #172b4d;
+}
+
+.social-login-name {
+  align-self: center;
+  text-align: start;
+  margin-left: 3rem;
+  font-weight: bold;
+}
+
+.social-login-logo {
+  width: 18px;
+  align-self: center;
+}
+
+.social-login::after {
+  content: "";
+  width: 80%;
+  height: 1px;
+  background-color: #cccccc;
+  padding-right: 4rem;
+  margin: 1rem 0 0 0;
+}

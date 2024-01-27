@@ -1,0 +1,72 @@
+.welcome__container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.welcome__container > div {
+  margin: 0 5rem;
+}
+
+/* .welcome__description {
+  margin-top: 2rem;
+} */
+
+.welcome__img-box {
+  height: auto;
+  max-width: 80%;
+  background-color: #7b54e7;
+  background: linear-gradient(60deg, #ffbad2, #d5b5ff);
+  /* border-radius: 50%; */
+  padding: 0 1rem;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.welcome__description * {
+  margin: 0.5rem 0;
+}
+
+.welcome__container h1 {
+  font-size: 1.8rem;
+}
+
+.welcome__container p {
+  font-family: "Shabnam-Thin";
+  font-weight: bold;
+}
+
+.welcome__container button {
+  background-color: #0c66e4;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+.welcome__link {
+  margin-top: 1.2rem;
+}
+
+.welcome__img {
+  top: 20%;
+  right: 20%;
+  height: auto;
+  max-width: 22rem;
+}
+
+@media (max-width: 1200px) {
+  .welcome__container {
+    align-items: center;
+    text-align: center;
+  }
+  .welcome__container {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .welcome__img-box {
+    text-align: center;
+    height: auto;
+  }
+}

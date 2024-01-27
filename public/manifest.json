@@ -1,0 +1,21 @@
+{
+    "name": "Dev'Trello",
+    "short_name": "DevTrello",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#fdfdfd",
+    "theme_color": "#172b4d",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "./manifest-icon.svg",
+        "type": "image/svg", 
+        "sizes": "any"
+      },
+      {
+        "src": "./manifest-icon.png",
+        "type": "image/png", 
+        "sizes": "any"
+      }
+    ]
+  }

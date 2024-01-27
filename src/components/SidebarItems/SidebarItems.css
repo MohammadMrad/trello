@@ -1,0 +1,36 @@
+.sidebar-items {
+  font-family: "Shabnam-Thin";
+  font-weight: bold;
+  /* margin-top: 1rem; */
+}
+
+.sidebar-items h2 {
+  margin: 1rem 1.5rem;
+}
+
+.sidebar-items ul li a {
+  color: #fff;
+}
+
+.sidebar-items__navbar-li div {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+  padding: 0.5rem 1.8rem;
+}
+
+.sidebar-items__navbar-li-hover div:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.sidebar-items__navbar-li div * {
+  margin: 0 0.3rem;
+}
+
+.sidebar-massage {
+  text-align: center;
+  font-family: "Shabnam-Thin";
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: red;
+}
