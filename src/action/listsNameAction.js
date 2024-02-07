@@ -1,11 +1,53 @@
 import axios from "axios"
 
 export const listsNameAction =
-  (listIdDelete, listNameToFilter, debounce, reName, event, listId) =>
+  (
+    listIdDelete,
+    listNameToFilter,
+    debounce,
+    reName,
+    event,
+    listId,
+    isDrag,
+    hoveredList,
+    draggedList
+  ) =>
   async (dispatch, getState) => {
     try {
       // dispatch({ type: "SENDING-LISTN-REQUEST", loading: true })
       const user = JSON.parse(localStorage.getItem("user"))
+
+      if (isDrag) {
+        const currentState = getState()
+        const { listsName } = currentState.listsName
+
+        const hoveredListIndex = listsName.findIndex((item) => {
+          return item.listId === hoveredList.listId
+        })
+
+        const AllListsExceptDraggedList = listsName.filter((item) => {
+          return item.listId !== draggedList.listId
+        })
+
+        AllListsExceptDraggedList.splice(hoveredListIndex, 0, {
+          list: draggedList.list,
+          listId: draggedList.listId,
+          userId: draggedList.userId,
+          boardId: draggedList.boardId,
+          creationTime: draggedList.creationTime,
+        })
+
+        localStorage.setItem("lists", JSON.stringify(AllListsExceptDraggedList))
+
+        const lists = localStorage.getItem("lists")
+          ? JSON.parse(localStorage.getItem("lists"))
+          : []
+
+        dispatch({
+          type: "FETCH-LISTN-DATA-SUCCESS",
+          payload: lists,
+        })
+      }
 
       if (localStorage.getItem("lists") === null) {
         const user = JSON.parse(localStorage.getItem("user"))
@@ -82,37 +124,31 @@ export const listsNameAction =
           return item.listId === listId
         })
 
-        const ListsExceptCurrentList = listsName.filter((item) => {
+        const currentListIndex = listsName.findIndex((item) => {
+          return item.listId === listId
+        })
+
+        const AllListsExceptCurrentList = listsName.filter((item) => {
           return item.listId !== listId
         })
 
-        localStorage.setItem(
-          "lists",
-          JSON.stringify([
-            ...ListsExceptCurrentList,
-            {
-              list: event.target.value,
-              listId: currentList[0].listId,
-              userId: currentList[0].userId,
-              boardId: currentList[0].boardId,
-              creationTime: currentList[0].creationTime,
-            },
-          ])
-        )
+        AllListsExceptCurrentList.splice(currentListIndex, 0, {
+          list: event.target.value,
+          listId: currentList[0].listId,
+          userId: currentList[0].userId,
+          boardId: currentList[0].boardId,
+          creationTime: currentList[0].creationTime,
+        })
+
+        // {
+
+        // }
+
+        localStorage.setItem("lists", JSON.stringify(AllListsExceptCurrentList))
 
         const lists = localStorage.getItem("lists")
           ? JSON.parse(localStorage.getItem("lists"))
           : []
-
-        lists.sort((firstCart, secondCart) => {
-          if (firstCart.creationTime > secondCart.creationTime) {
-            return 1
-          } else if (firstCart.creationTime < secondCart.creationTime) {
-            return -1
-          } else {
-            return 0
-          }
-        })
 
         dispatch({
           type: "FETCH-LISTN-DATA-SUCCESS",

@@ -1,11 +1,59 @@
 import axios from "axios"
+import update from "immutability-helper"
+import CartName from "../page/CartName/CartName"
 
 export const cardsNameAction =
-  (cardIdDelete, debounce, reName, event, cartId) =>
+  (
+    cardIdDelete,
+    debounce,
+    reName,
+    event,
+    cartId,
+    isDrag,
+    draggedCard,
+    hoveredCard
+  ) =>
   async (dispatch, getState) => {
     try {
       // dispatch({ type: "SENDING-CARD-REQUEST", loading: true })
       const user = JSON.parse(localStorage.getItem("user"))
+      if (isDrag) {
+        console.log(isDrag)
+
+        const currentState = getState()
+        const { cardsName } = currentState.cardsName
+
+        const hoverCardIndex = cardsName.findIndex((item) => {
+          return item.cardId === hoveredCard.cardId
+        })
+
+        const AllCardsExceptDragedCard = cardsName.filter((item) => {
+          return item.cardId !== draggedCard.cardId
+        })
+
+        if (draggedCard.listId === hoveredCard.listId) {
+          AllCardsExceptDragedCard.splice(hoverCardIndex, 0, draggedCard)
+        } else {
+          const listidhover = hoveredCard.listId
+
+          AllCardsExceptDragedCard.splice(hoverCardIndex, 0, {
+            card: draggedCard.card,
+            listId: listidhover,
+            cardId: draggedCard.cardId,
+            userId: draggedCard.userId,
+            creationTime: draggedCard.creationTime,
+          })
+        }
+
+        localStorage.setItem("cards", JSON.stringify(AllCardsExceptDragedCard))
+
+        dispatch({
+          type: "SENDING-CARD-REQUEST",
+          payload: {
+            cardsName: AllCardsExceptDragedCard,
+          },
+        })
+      }
 
       if (localStorage.getItem("cards") === null) {
         const user = JSON.parse(localStorage.getItem("user"))
@@ -82,23 +130,23 @@ export const cardsNameAction =
           return item.cardId === cartId
         })
 
+        const currentCardIndex = cardsName.findIndex((item) => {
+          return item.cardId === cartId
+        })
+
         const CardsExceptCurrentCard = cardsName.filter((item) => {
           return item.cardId !== cartId
         })
 
-        localStorage.setItem(
-          "cards",
-          JSON.stringify([
-            ...CardsExceptCurrentCard,
-            {
-              card: event.target.value,
-              listId: currentCard[0].listId,
-              cardId: currentCard[0].cardId,
-              userId: currentCard[0].userId,
-              creationTime: currentCard[0].creationTime,
-            },
-          ])
-        )
+        CardsExceptCurrentCard.splice(currentCardIndex, 0, {
+          card: event.target.value,
+          listId: currentCard[0].listId,
+          cardId: currentCard[0].cardId,
+          userId: currentCard[0].userId,
+          creationTime: currentCard[0].creationTime,
+        })
+
+        localStorage.setItem("cards", JSON.stringify(CardsExceptCurrentCard))
 
         const cards = localStorage.getItem("cards")
           ? JSON.parse(localStorage.getItem("cards"))
@@ -171,30 +219,6 @@ export const cardsNameAction =
           // console.log(data)
         }
       }
-
-      // if (cardIdDelete) {
-      //   if (navigator.onLine) {
-      //     const response = await axios.delete(
-      //       "https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json"
-      //     )
-      //     // const data = await response.data
-      //     // console.log(data)
-
-      //     for (const item in cards) {
-      //       const response = await axios.post(
-      //         "https://trello-d791c-default-rtdb.firebaseio.com/cardsName.json",
-      //         {
-      //           card: cards[item].card,
-      //           listId: cards[item].listId,
-      //           cardId: cards[item].cardId,
-      //           userId: cards[item].userId,
-      //         }
-      //       )
-      //       // const data = await response.data
-      //       // console.log(data)
-      //     }
-      //   }
-      // }
     } catch (error) {
       console.log(error)
     }

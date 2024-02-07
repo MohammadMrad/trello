@@ -8,21 +8,19 @@
   src: url(./assets/fonts/Shabnam-Thin.woff2);
 }
 
-body {
-  font: 100% "Shabnam-Medium";
-  min-height: 70vh;
-  color: #172b4d;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-a {
-  text-decoration: none;
-  color: #172b4d;
-}
-
-main {
-  min-height: 89vh;
-}
-
-i {
-  color: #fff;
+@layer base {
+  body {
+    font: 100% "Shabnam-Medium";
+    color: #172b4d;
+  }
+  main {
+    min-height: 100vh;
+  }
+  i {
+    color: #fff;
+  }
 }
