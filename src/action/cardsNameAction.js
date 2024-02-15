@@ -1,6 +1,4 @@
 import axios from "axios"
-import update from "immutability-helper"
-import CartName from "../page/CartName/CartName"
 
 export const cardsNameAction =
   (
